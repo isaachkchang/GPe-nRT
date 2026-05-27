@@ -37,18 +37,14 @@ GPe/
 │
 └── DLC/
 ```
-
----
-
-### Figure 1
+### Figures
+#### Fig 1
 ```text
-code/[SCRIPT NAME]
+A. 
 ```
 ## Contact
 
 For questions, please contact Isaac Chang at isaachkchang@gmail.com
-
----
 
 ## Citation
 
