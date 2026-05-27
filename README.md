@@ -1,5 +1,5 @@
 # GPe–nRT Project Repository
-![Overview](Graphical abstract.png)
+<img src="Graphical_abstract.png" width="500">
 ## Overview
 
 This repository contains all code, data, DLC network assoociated with the manuscript:
