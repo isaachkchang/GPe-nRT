@@ -1,0 +1,136 @@
+data:
+  bbox_margin: 20
+  colormode: RGB
+  inference:
+    normalize_images: true
+    auto_padding:
+      pad_width_divisor: 32
+      pad_height_divisor: 32
+  train:
+    affine:
+      p: 0.5
+      rotation: 30
+      scaling:
+      - 0.5
+      - 1.25
+      translation: 0
+    crop_sampling:
+      width: 448
+      height: 448
+      max_shift: 0.1
+      method: hybrid
+    gaussian_noise: 12.75
+    motion_blur: true
+    normalize_images: true
+    auto_padding:
+      pad_width_divisor: 32
+      pad_height_divisor: 32
+device: auto
+metadata:
+  project_path: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09
+  pose_config_path: 
+    C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\dlc-models-pytorch\iteration-0\GPEDec9-trainset95shuffle1\train\pytorch_config.yaml
+  bodyparts:
+  - Nose
+  - Left_ear
+  - Right_ear
+  - Centroid
+  - Left_lateral
+  - Right_lateral
+  - Tail_base
+  - Tail_end
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+  unique_bodyparts: []
+  individuals:
+  - animal
+  with_identity:
+method: bu
+model:
+  backbone:
+    type: HRNet
+    model_name: hrnet_w32
+    freeze_bn_stats: true
+    freeze_bn_weights: false
+    interpolate_branches: false
+    increased_channel_count: false
+  backbone_output_channels: 32
+  heads:
+    bodypart:
+      type: HeatmapHead
+      weight_init: normal
+      predictor:
+        type: HeatmapPredictor
+        apply_sigmoid: false
+        clip_scores: true
+        location_refinement: true
+        locref_std: 7.2801
+      target_generator:
+        type: HeatmapGaussianGenerator
+        num_heatmaps: 8
+        pos_dist_thresh: 17
+        heatmap_mode: KEYPOINT
+        gradient_masking: false
+        generate_locref: true
+        locref_std: 7.2801
+      criterion:
+        heatmap:
+          type: WeightedMSECriterion
+          weight: 1.0
+        locref:
+          type: WeightedHuberCriterion
+          weight: 0.05
+      heatmap_config:
+        channels:
+        - 32
+        - 8
+        kernel_size:
+        - 3
+        strides:
+        - 2
+      locref_config:
+        channels:
+        - 32
+        - 16
+        kernel_size:
+        - 3
+        strides:
+        - 2
+net_type: hrnet_w32
+runner:
+  type: PoseTrainingRunner
+  gpus:
+  key_metric: test.mAP
+  key_metric_asc: true
+  eval_interval: 10
+  optimizer:
+    type: AdamW
+    params:
+      lr: 0.0001
+  scheduler:
+    type: LRListScheduler
+    params:
+      lr_list:
+      - - 1e-05
+      - - 1e-06
+      milestones:
+      - 160
+      - 190
+  snapshots:
+    max_snapshots: 5
+    save_epochs: 25
+    save_optimizer_state: false
+train_settings:
+  batch_size: 8
+  dataloader_workers: 0
+  dataloader_pin_memory: false
+  display_iters: 500
+  epochs: 200
+  seed: 42
+  weight_init:
+    dataset: superanimal_topviewmouse
+    snapshot_path: 
+      C:\Users\isaac.chang\Miniconda3\envs\DEEPLABCUT\lib\site-packages\deeplabcut\modelzoo\checkpoints\superanimal_topviewmouse_hrnet_w32.pt
+    with_decoder: false
+    memory_replay: false

@@ -1,0 +1,1714 @@
+2025-12-16 08:40:38 Training with configuration:
+2025-12-16 08:40:38 data:
+2025-12-16 08:40:38   bbox_margin: 20
+2025-12-16 08:40:38   colormode: RGB
+2025-12-16 08:40:38   inference:
+2025-12-16 08:40:38     normalize_images: True
+2025-12-16 08:40:38   train:
+2025-12-16 08:40:38     affine:
+2025-12-16 08:40:38       p: 0.5
+2025-12-16 08:40:38       rotation: 30
+2025-12-16 08:40:38       scaling: [0.5, 1.25]
+2025-12-16 08:40:38       translation: 0
+2025-12-16 08:40:38     crop_sampling:
+2025-12-16 08:40:38       width: 448
+2025-12-16 08:40:38       height: 448
+2025-12-16 08:40:38       max_shift: 0.1
+2025-12-16 08:40:38       method: hybrid
+2025-12-16 08:40:38     gaussian_noise: 12.75
+2025-12-16 08:40:38     motion_blur: True
+2025-12-16 08:40:38     normalize_images: True
+2025-12-16 08:40:38 device: auto
+2025-12-16 08:40:38 metadata:
+2025-12-16 08:40:38   project_path: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09
+2025-12-16 08:40:38   pose_config_path: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\dlc-models-pytorch\iteration-0\GPEDec9-trainset95shuffle3\train\pytorch_config.yaml
+2025-12-16 08:40:38   bodyparts: ['Nose', 'Left_ear', 'Right_ear', 'Centroid', 'Left_lateral', 'Right_lateral', 'Tail_base', 'Tail_end']
+2025-12-16 08:40:38   unique_bodyparts: []
+2025-12-16 08:40:38   individuals: ['animal']
+2025-12-16 08:40:38   with_identity: None
+2025-12-16 08:40:38 method: bu
+2025-12-16 08:40:38 model:
+2025-12-16 08:40:38   backbone:
+2025-12-16 08:40:38     type: ResNet
+2025-12-16 08:40:38     model_name: resnet50_gn
+2025-12-16 08:40:38     output_stride: 16
+2025-12-16 08:40:38     freeze_bn_stats: False
+2025-12-16 08:40:38     freeze_bn_weights: False
+2025-12-16 08:40:38   backbone_output_channels: 2048
+2025-12-16 08:40:38   heads:
+2025-12-16 08:40:38     bodypart:
+2025-12-16 08:40:38       type: HeatmapHead
+2025-12-16 08:40:38       weight_init: normal
+2025-12-16 08:40:38       predictor:
+2025-12-16 08:40:38         type: HeatmapPredictor
+2025-12-16 08:40:38         apply_sigmoid: False
+2025-12-16 08:40:38         clip_scores: True
+2025-12-16 08:40:38         location_refinement: True
+2025-12-16 08:40:38         locref_std: 7.2801
+2025-12-16 08:40:38       target_generator:
+2025-12-16 08:40:38         type: HeatmapGaussianGenerator
+2025-12-16 08:40:38         num_heatmaps: 8
+2025-12-16 08:40:38         pos_dist_thresh: 17
+2025-12-16 08:40:38         heatmap_mode: KEYPOINT
+2025-12-16 08:40:38         gradient_masking: False
+2025-12-16 08:40:38         generate_locref: True
+2025-12-16 08:40:38         locref_std: 7.2801
+2025-12-16 08:40:38       criterion:
+2025-12-16 08:40:38         heatmap:
+2025-12-16 08:40:38           type: WeightedMSECriterion
+2025-12-16 08:40:38           weight: 1.0
+2025-12-16 08:40:38         locref:
+2025-12-16 08:40:38           type: WeightedHuberCriterion
+2025-12-16 08:40:38           weight: 0.05
+2025-12-16 08:40:38       heatmap_config:
+2025-12-16 08:40:38         channels: [2048, 8]
+2025-12-16 08:40:38         kernel_size: [3]
+2025-12-16 08:40:38         strides: [2]
+2025-12-16 08:40:38       locref_config:
+2025-12-16 08:40:38         channels: [2048, 16]
+2025-12-16 08:40:38         kernel_size: [3]
+2025-12-16 08:40:38         strides: [2]
+2025-12-16 08:40:38 net_type: resnet_50
+2025-12-16 08:40:38 runner:
+2025-12-16 08:40:38   type: PoseTrainingRunner
+2025-12-16 08:40:38   gpus: None
+2025-12-16 08:40:38   key_metric: test.mAP
+2025-12-16 08:40:38   key_metric_asc: True
+2025-12-16 08:40:38   eval_interval: 10
+2025-12-16 08:40:38   optimizer:
+2025-12-16 08:40:38     type: AdamW
+2025-12-16 08:40:38     params:
+2025-12-16 08:40:38       lr: 0.0005
+2025-12-16 08:40:38   scheduler:
+2025-12-16 08:40:38     type: LRListScheduler
+2025-12-16 08:40:38     params:
+2025-12-16 08:40:38       lr_list: [[0.0001], [1e-05]]
+2025-12-16 08:40:38       milestones: [90, 120]
+2025-12-16 08:40:38   snapshots:
+2025-12-16 08:40:38     max_snapshots: 5
+2025-12-16 08:40:38     save_epochs: 10
+2025-12-16 08:40:38     save_optimizer_state: False
+2025-12-16 08:40:38 train_settings:
+2025-12-16 08:40:38   batch_size: 8
+2025-12-16 08:40:38   dataloader_workers: 0
+2025-12-16 08:40:38   dataloader_pin_memory: False
+2025-12-16 08:40:38   display_iters: 10
+2025-12-16 08:40:38   epochs: 100
+2025-12-16 08:40:38   seed: 42
+2025-12-16 08:40:38   weight_init:
+2025-12-16 08:40:38     dataset: superanimal_topviewmouse
+2025-12-16 08:40:38     snapshot_path: C:\Users\isaac.chang\Miniconda3\envs\DEEPLABCUT\lib\site-packages\deeplabcut\modelzoo\checkpoints\superanimal_topviewmouse_resnet_50.pt
+2025-12-16 08:40:38     with_decoder: False
+2025-12-16 08:40:38     memory_replay: False
+2025-12-16 08:40:38 Loading pretrained model weights: WeightInitialization(snapshot_path=WindowsPath('C:/Users/isaac.chang/Miniconda3/envs/DEEPLABCUT/lib/site-packages/deeplabcut/modelzoo/checkpoints/superanimal_topviewmouse_resnet_50.pt'), detector_snapshot_path=None, dataset='superanimal_topviewmouse', with_decoder=False, memory_replay=False, conversion_array=None, bodyparts=None)
+2025-12-16 08:40:38 The pose model is loading from C:\Users\isaac.chang\Miniconda3\envs\DEEPLABCUT\lib\site-packages\deeplabcut\modelzoo\checkpoints\superanimal_topviewmouse_resnet_50.pt
+2025-12-16 08:40:39 Data Transforms:
+2025-12-16 08:40:39   Training:   Compose([
+  Affine(always_apply=False, p=0.5, interpolation=1, mask_interpolation=0, cval=0, mode=0, scale={'x': (0.5, 1.25), 'y': (0.5, 1.25)}, translate_percent=None, translate_px={'x': (0, 0), 'y': (0, 0)}, rotate=(-30, 30), fit_output=False, shear={'x': (0.0, 0.0), 'y': (0.0, 0.0)}, cval_mask=0, keep_ratio=True, rotate_method='largest_box'),
+  PadIfNeeded(always_apply=True, p=1.0, min_height=448, min_width=448, pad_height_divisor=None, pad_width_divisor=None, position=PositionType.CENTER, border_mode=0, value=None, mask_value=None),
+  KeypointAwareCrop(always_apply=True, p=1.0, width=448, height=448, max_shift=0.1, crop_sampling='hybrid'),
+  MotionBlur(always_apply=False, p=0.5, blur_limit=(3, 7), allow_shifted=True),
+  GaussNoise(always_apply=False, p=0.5, var_limit=(0, 162.5625), per_channel=True, mean=0),
+  Normalize(always_apply=False, p=1.0, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], max_pixel_value=255.0),
+], p=1.0, bbox_params={'format': 'coco', 'label_fields': ['bbox_labels'], 'min_area': 0.0, 'min_visibility': 0.0, 'min_width': 0.0, 'min_height': 0.0, 'check_each_transform': True}, keypoint_params={'format': 'xy', 'label_fields': ['class_labels'], 'remove_invisible': False, 'angle_in_degrees': True, 'check_each_transform': True}, additional_targets={}, is_check_shapes=True)
+2025-12-16 08:40:39   Validation: Compose([
+  Normalize(always_apply=False, p=1.0, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], max_pixel_value=255.0),
+], p=1.0, bbox_params={'format': 'coco', 'label_fields': ['bbox_labels'], 'min_area': 0.0, 'min_visibility': 0.0, 'min_width': 0.0, 'min_height': 0.0, 'check_each_transform': True}, keypoint_params={'format': 'xy', 'label_fields': ['class_labels'], 'remove_invisible': False, 'angle_in_degrees': True, 'check_each_transform': True}, additional_targets={}, is_check_shapes=True)
+2025-12-16 08:40:40 Using 703 images and 37 for testing
+2025-12-16 08:40:40 
+Starting pose model training...
+--------------------------------------------------
+2025-12-16 08:43:52 Number of iterations: 10, loss: 0.01215, lr: 0.0005
+2025-12-16 08:47:00 Number of iterations: 20, loss: 0.00546, lr: 0.0005
+2025-12-16 08:50:09 Number of iterations: 30, loss: 0.00502, lr: 0.0005
+2025-12-16 08:53:18 Number of iterations: 40, loss: 0.00405, lr: 0.0005
+2025-12-16 08:56:26 Number of iterations: 50, loss: 0.00435, lr: 0.0005
+2025-12-16 08:59:35 Number of iterations: 60, loss: 0.00355, lr: 0.0005
+2025-12-16 09:02:43 Number of iterations: 70, loss: 0.00298, lr: 0.0005
+2025-12-16 09:05:51 Number of iterations: 80, loss: 0.00282, lr: 0.0005
+2025-12-16 09:08:20 Epoch 1/100 (lr=0.0005), train loss 0.00500
+2025-12-16 09:11:28 Number of iterations: 10, loss: 0.00270, lr: 0.0005
+2025-12-16 09:14:35 Number of iterations: 20, loss: 0.00197, lr: 0.0005
+2025-12-16 09:17:43 Number of iterations: 30, loss: 0.00266, lr: 0.0005
+2025-12-16 09:20:51 Number of iterations: 40, loss: 0.00319, lr: 0.0005
+2025-12-16 09:24:01 Number of iterations: 50, loss: 0.00184, lr: 0.0005
+2025-12-16 09:27:11 Number of iterations: 60, loss: 0.00243, lr: 0.0005
+2025-12-16 09:30:16 Number of iterations: 70, loss: 0.00193, lr: 0.0005
+2025-12-16 09:33:22 Number of iterations: 80, loss: 0.00326, lr: 0.0005
+2025-12-16 09:35:51 Epoch 2/100 (lr=0.0005), train loss 0.00240
+2025-12-16 09:38:57 Number of iterations: 10, loss: 0.00194, lr: 0.0005
+2025-12-16 09:42:04 Number of iterations: 20, loss: 0.00220, lr: 0.0005
+2025-12-16 09:45:10 Number of iterations: 30, loss: 0.00209, lr: 0.0005
+2025-12-16 09:48:17 Number of iterations: 40, loss: 0.00180, lr: 0.0005
+2025-12-16 09:51:24 Number of iterations: 50, loss: 0.00202, lr: 0.0005
+2025-12-16 09:54:33 Number of iterations: 60, loss: 0.00158, lr: 0.0005
+2025-12-16 09:57:43 Number of iterations: 70, loss: 0.00228, lr: 0.0005
+2025-12-16 10:00:51 Number of iterations: 80, loss: 0.00162, lr: 0.0005
+2025-12-16 10:03:18 Epoch 3/100 (lr=0.0005), train loss 0.00209
+2025-12-16 10:06:25 Number of iterations: 10, loss: 0.00175, lr: 0.0005
+2025-12-16 10:09:31 Number of iterations: 20, loss: 0.00177, lr: 0.0005
+2025-12-16 10:12:38 Number of iterations: 30, loss: 0.00167, lr: 0.0005
+2025-12-16 10:15:46 Number of iterations: 40, loss: 0.00230, lr: 0.0005
+2025-12-16 10:18:53 Number of iterations: 50, loss: 0.00185, lr: 0.0005
+2025-12-16 10:21:59 Number of iterations: 60, loss: 0.00182, lr: 0.0005
+2025-12-16 10:25:07 Number of iterations: 70, loss: 0.00198, lr: 0.0005
+2025-12-16 10:28:14 Number of iterations: 80, loss: 0.00216, lr: 0.0005
+2025-12-16 10:30:41 Epoch 4/100 (lr=0.0005), train loss 0.00200
+2025-12-16 10:33:51 Number of iterations: 10, loss: 0.00191, lr: 0.0005
+2025-12-16 10:36:59 Number of iterations: 20, loss: 0.00135, lr: 0.0005
+2025-12-16 10:40:06 Number of iterations: 30, loss: 0.00164, lr: 0.0005
+2025-12-16 10:43:14 Number of iterations: 40, loss: 0.00166, lr: 0.0005
+2025-12-16 10:46:19 Number of iterations: 50, loss: 0.00229, lr: 0.0005
+2025-12-16 10:49:26 Number of iterations: 60, loss: 0.00211, lr: 0.0005
+2025-12-16 10:52:32 Number of iterations: 70, loss: 0.00149, lr: 0.0005
+2025-12-16 10:55:39 Number of iterations: 80, loss: 0.00176, lr: 0.0005
+2025-12-16 10:58:08 Epoch 5/100 (lr=0.0005), train loss 0.00182
+2025-12-16 11:01:15 Number of iterations: 10, loss: 0.00148, lr: 0.0005
+2025-12-16 11:04:20 Number of iterations: 20, loss: 0.00185, lr: 0.0005
+2025-12-16 11:07:27 Number of iterations: 30, loss: 0.00151, lr: 0.0005
+2025-12-16 11:10:34 Number of iterations: 40, loss: 0.00188, lr: 0.0005
+2025-12-16 11:13:41 Number of iterations: 50, loss: 0.00165, lr: 0.0005
+2025-12-16 11:16:48 Number of iterations: 60, loss: 0.00211, lr: 0.0005
+2025-12-16 11:19:55 Number of iterations: 70, loss: 0.00121, lr: 0.0005
+2025-12-16 11:23:01 Number of iterations: 80, loss: 0.00232, lr: 0.0005
+2025-12-16 11:25:31 Epoch 6/100 (lr=0.0005), train loss 0.00178
+2025-12-16 11:28:39 Number of iterations: 10, loss: 0.00153, lr: 0.0005
+2025-12-16 11:31:45 Number of iterations: 20, loss: 0.00135, lr: 0.0005
+2025-12-16 11:34:51 Number of iterations: 30, loss: 0.00249, lr: 0.0005
+2025-12-16 11:37:57 Number of iterations: 40, loss: 0.00162, lr: 0.0005
+2025-12-16 11:41:05 Number of iterations: 50, loss: 0.00176, lr: 0.0005
+2025-12-16 11:44:11 Number of iterations: 60, loss: 0.00195, lr: 0.0005
+2025-12-16 11:47:18 Number of iterations: 70, loss: 0.00181, lr: 0.0005
+2025-12-16 11:50:24 Number of iterations: 80, loss: 0.00167, lr: 0.0005
+2025-12-16 11:52:52 Epoch 7/100 (lr=0.0005), train loss 0.00167
+2025-12-16 11:55:59 Number of iterations: 10, loss: 0.00141, lr: 0.0005
+2025-12-16 11:59:07 Number of iterations: 20, loss: 0.00155, lr: 0.0005
+2025-12-16 12:02:13 Number of iterations: 30, loss: 0.00158, lr: 0.0005
+2025-12-16 12:05:20 Number of iterations: 40, loss: 0.00166, lr: 0.0005
+2025-12-16 12:08:26 Number of iterations: 50, loss: 0.00139, lr: 0.0005
+2025-12-16 12:11:33 Number of iterations: 60, loss: 0.00124, lr: 0.0005
+2025-12-16 12:14:39 Number of iterations: 70, loss: 0.00143, lr: 0.0005
+2025-12-16 12:17:46 Number of iterations: 80, loss: 0.00137, lr: 0.0005
+2025-12-16 12:20:14 Epoch 8/100 (lr=0.0005), train loss 0.00166
+2025-12-16 12:23:21 Number of iterations: 10, loss: 0.00320, lr: 0.0005
+2025-12-16 12:26:29 Number of iterations: 20, loss: 0.00188, lr: 0.0005
+2025-12-16 12:29:37 Number of iterations: 30, loss: 0.00133, lr: 0.0005
+2025-12-16 12:32:43 Number of iterations: 40, loss: 0.00158, lr: 0.0005
+2025-12-16 12:35:50 Number of iterations: 50, loss: 0.00193, lr: 0.0005
+2025-12-16 12:38:57 Number of iterations: 60, loss: 0.00155, lr: 0.0005
+2025-12-16 12:42:04 Number of iterations: 70, loss: 0.00154, lr: 0.0005
+2025-12-16 12:45:10 Number of iterations: 80, loss: 0.00169, lr: 0.0005
+2025-12-16 12:47:38 Epoch 9/100 (lr=0.0005), train loss 0.00164
+2025-12-16 12:50:45 Number of iterations: 10, loss: 0.00108, lr: 0.0005
+2025-12-16 12:53:53 Number of iterations: 20, loss: 0.00146, lr: 0.0005
+2025-12-16 12:56:57 Number of iterations: 30, loss: 0.00153, lr: 0.0005
+2025-12-16 13:00:02 Number of iterations: 40, loss: 0.00146, lr: 0.0005
+2025-12-16 13:03:06 Number of iterations: 50, loss: 0.00185, lr: 0.0005
+2025-12-16 13:06:10 Number of iterations: 60, loss: 0.00232, lr: 0.0005
+2025-12-16 13:09:13 Number of iterations: 70, loss: 0.00125, lr: 0.0005
+2025-12-16 13:12:19 Number of iterations: 80, loss: 0.00122, lr: 0.0005
+2025-12-16 13:14:43 Training for epoch 10 done, starting evaluation
+2025-12-16 13:15:28 Epoch 10/100 (lr=0.0005), train loss 0.00150, valid loss 0.00197
+2025-12-16 13:15:28 Model performance:
+2025-12-16 13:15:28   metrics/test.rmse:           6.88
+2025-12-16 13:15:28   metrics/test.rmse_pcutoff:   3.62
+2025-12-16 13:15:28   metrics/test.mAP:           95.88
+2025-12-16 13:15:28   metrics/test.mAR:           96.22
+2025-12-16 13:18:31 Number of iterations: 10, loss: 0.00129, lr: 0.0005
+2025-12-16 13:21:35 Number of iterations: 20, loss: 0.00138, lr: 0.0005
+2025-12-16 13:24:38 Number of iterations: 30, loss: 0.00152, lr: 0.0005
+2025-12-16 13:27:46 Number of iterations: 40, loss: 0.00123, lr: 0.0005
+2025-12-16 13:30:50 Number of iterations: 50, loss: 0.00127, lr: 0.0005
+2025-12-16 13:33:54 Number of iterations: 60, loss: 0.00164, lr: 0.0005
+2025-12-16 13:36:58 Number of iterations: 70, loss: 0.00157, lr: 0.0005
+2025-12-16 13:40:02 Number of iterations: 80, loss: 0.00148, lr: 0.0005
+2025-12-16 13:42:29 Epoch 11/100 (lr=0.0005), train loss 0.00151
+2025-12-16 13:45:32 Number of iterations: 10, loss: 0.00177, lr: 0.0005
+2025-12-16 13:48:37 Number of iterations: 20, loss: 0.00141, lr: 0.0005
+2025-12-16 13:51:41 Number of iterations: 30, loss: 0.00138, lr: 0.0005
+2025-12-16 13:54:46 Number of iterations: 40, loss: 0.00142, lr: 0.0005
+2025-12-16 13:57:52 Number of iterations: 50, loss: 0.00158, lr: 0.0005
+2025-12-16 14:00:56 Number of iterations: 60, loss: 0.00128, lr: 0.0005
+2025-12-16 14:03:59 Number of iterations: 70, loss: 0.00126, lr: 0.0005
+2025-12-16 14:07:04 Number of iterations: 80, loss: 0.00157, lr: 0.0005
+2025-12-16 14:09:30 Epoch 12/100 (lr=0.0005), train loss 0.00147
+2025-12-16 14:12:34 Number of iterations: 10, loss: 0.00153, lr: 0.0005
+2025-12-16 14:15:37 Number of iterations: 20, loss: 0.00199, lr: 0.0005
+2025-12-16 14:18:41 Number of iterations: 30, loss: 0.00137, lr: 0.0005
+2025-12-16 14:21:45 Number of iterations: 40, loss: 0.00121, lr: 0.0005
+2025-12-16 14:24:51 Number of iterations: 50, loss: 0.00172, lr: 0.0005
+2025-12-16 14:27:57 Number of iterations: 60, loss: 0.00159, lr: 0.0005
+2025-12-16 14:31:00 Number of iterations: 70, loss: 0.00209, lr: 0.0005
+2025-12-16 14:34:03 Number of iterations: 80, loss: 0.00162, lr: 0.0005
+2025-12-16 14:36:27 Epoch 13/100 (lr=0.0005), train loss 0.00146
+2025-12-16 14:39:31 Number of iterations: 10, loss: 0.00108, lr: 0.0005
+2025-12-16 14:42:34 Number of iterations: 20, loss: 0.00145, lr: 0.0005
+2025-12-16 14:45:37 Number of iterations: 30, loss: 0.00157, lr: 0.0005
+2025-12-16 14:48:41 Number of iterations: 40, loss: 0.00119, lr: 0.0005
+2025-12-16 14:51:45 Number of iterations: 50, loss: 0.00134, lr: 0.0005
+2025-12-16 14:54:50 Number of iterations: 60, loss: 0.00154, lr: 0.0005
+2025-12-16 14:57:56 Number of iterations: 70, loss: 0.00208, lr: 0.0005
+2025-12-16 15:00:59 Number of iterations: 80, loss: 0.00141, lr: 0.0005
+2025-12-16 15:03:24 Epoch 14/100 (lr=0.0005), train loss 0.00136
+2025-12-16 15:06:27 Number of iterations: 10, loss: 0.00144, lr: 0.0005
+2025-12-16 15:09:31 Number of iterations: 20, loss: 0.00154, lr: 0.0005
+2025-12-16 15:12:34 Number of iterations: 30, loss: 0.00171, lr: 0.0005
+2025-12-16 15:15:38 Number of iterations: 40, loss: 0.00124, lr: 0.0005
+2025-12-16 15:18:42 Number of iterations: 50, loss: 0.00119, lr: 0.0005
+2025-12-16 15:21:45 Number of iterations: 60, loss: 0.00150, lr: 0.0005
+2025-12-16 15:24:48 Number of iterations: 70, loss: 0.00137, lr: 0.0005
+2025-12-16 15:27:56 Number of iterations: 80, loss: 0.00114, lr: 0.0005
+2025-12-16 15:30:24 Epoch 15/100 (lr=0.0005), train loss 0.00139
+2025-12-16 15:33:30 Number of iterations: 10, loss: 0.00088, lr: 0.0005
+2025-12-16 15:36:38 Number of iterations: 20, loss: 0.00126, lr: 0.0005
+2025-12-16 15:39:45 Number of iterations: 30, loss: 0.00126, lr: 0.0005
+2025-12-16 15:42:52 Number of iterations: 40, loss: 0.00132, lr: 0.0005
+2025-12-16 15:45:59 Number of iterations: 50, loss: 0.00126, lr: 0.0005
+2025-12-16 15:49:10 Number of iterations: 60, loss: 0.00134, lr: 0.0005
+2025-12-16 15:52:17 Number of iterations: 70, loss: 0.00155, lr: 0.0005
+2025-12-16 15:55:26 Number of iterations: 80, loss: 0.00124, lr: 0.0005
+2025-12-16 15:57:55 Epoch 16/100 (lr=0.0005), train loss 0.00132
+2025-12-16 16:01:01 Number of iterations: 10, loss: 0.00142, lr: 0.0005
+2025-12-16 16:04:08 Number of iterations: 20, loss: 0.00101, lr: 0.0005
+2025-12-16 16:07:15 Number of iterations: 30, loss: 0.00111, lr: 0.0005
+2025-12-16 16:10:22 Number of iterations: 40, loss: 0.00102, lr: 0.0005
+2025-12-16 16:13:29 Number of iterations: 50, loss: 0.00130, lr: 0.0005
+2025-12-16 16:16:36 Number of iterations: 60, loss: 0.00109, lr: 0.0005
+2025-12-16 16:19:43 Number of iterations: 70, loss: 0.00150, lr: 0.0005
+2025-12-16 16:22:52 Number of iterations: 80, loss: 0.00151, lr: 0.0005
+2025-12-16 16:25:20 Epoch 17/100 (lr=0.0005), train loss 0.00130
+2025-12-16 16:28:27 Number of iterations: 10, loss: 0.00078, lr: 0.0005
+2025-12-16 16:31:34 Number of iterations: 20, loss: 0.00160, lr: 0.0005
+2025-12-16 16:34:40 Number of iterations: 30, loss: 0.00112, lr: 0.0005
+2025-12-16 16:37:47 Number of iterations: 40, loss: 0.00129, lr: 0.0005
+2025-12-16 16:40:54 Number of iterations: 50, loss: 0.00129, lr: 0.0005
+2025-12-16 16:44:01 Number of iterations: 60, loss: 0.00100, lr: 0.0005
+2025-12-16 16:47:08 Number of iterations: 70, loss: 0.00123, lr: 0.0005
+2025-12-16 16:50:15 Number of iterations: 80, loss: 0.00179, lr: 0.0005
+2025-12-16 16:52:42 Epoch 18/100 (lr=0.0005), train loss 0.00132
+2025-12-16 16:55:50 Number of iterations: 10, loss: 0.00068, lr: 0.0005
+2025-12-16 16:58:57 Number of iterations: 20, loss: 0.00114, lr: 0.0005
+2025-12-16 17:02:07 Number of iterations: 30, loss: 0.00102, lr: 0.0005
+2025-12-16 17:05:15 Number of iterations: 40, loss: 0.00111, lr: 0.0005
+2025-12-16 17:08:21 Number of iterations: 50, loss: 0.00134, lr: 0.0005
+2025-12-16 17:11:28 Number of iterations: 60, loss: 0.00123, lr: 0.0005
+2025-12-16 17:14:35 Number of iterations: 70, loss: 0.00085, lr: 0.0005
+2025-12-16 17:17:43 Number of iterations: 80, loss: 0.00102, lr: 0.0005
+2025-12-16 17:20:10 Epoch 19/100 (lr=0.0005), train loss 0.00127
+2025-12-16 17:23:15 Number of iterations: 10, loss: 0.00091, lr: 0.0005
+2025-12-16 17:26:30 Number of iterations: 20, loss: 0.00134, lr: 0.0005
+2025-12-16 17:29:44 Number of iterations: 30, loss: 0.00110, lr: 0.0005
+2025-12-16 17:32:55 Number of iterations: 40, loss: 0.00193, lr: 0.0005
+2025-12-16 17:36:13 Number of iterations: 50, loss: 0.00116, lr: 0.0005
+2025-12-16 17:39:24 Number of iterations: 60, loss: 0.00155, lr: 0.0005
+2025-12-16 17:42:32 Number of iterations: 70, loss: 0.00124, lr: 0.0005
+2025-12-16 17:45:39 Number of iterations: 80, loss: 0.00102, lr: 0.0005
+2025-12-16 17:48:06 Training for epoch 20 done, starting evaluation
+2025-12-16 17:48:51 Epoch 20/100 (lr=0.0005), train loss 0.00123, valid loss 0.00166
+2025-12-16 17:48:51 Model performance:
+2025-12-16 17:48:51   metrics/test.rmse:           4.64
+2025-12-16 17:48:51   metrics/test.rmse_pcutoff:   3.35
+2025-12-16 17:48:51   metrics/test.mAP:           97.30
+2025-12-16 17:48:51   metrics/test.mAR:           97.57
+2025-12-16 17:51:56 Number of iterations: 10, loss: 0.00117, lr: 0.0005
+2025-12-16 17:55:03 Number of iterations: 20, loss: 0.00111, lr: 0.0005
+2025-12-16 17:58:10 Number of iterations: 30, loss: 0.00123, lr: 0.0005
+2025-12-16 18:01:16 Number of iterations: 40, loss: 0.00117, lr: 0.0005
+2025-12-16 18:04:23 Number of iterations: 50, loss: 0.00128, lr: 0.0005
+2025-12-16 18:07:29 Number of iterations: 60, loss: 0.00110, lr: 0.0005
+2025-12-16 18:10:35 Number of iterations: 70, loss: 0.00115, lr: 0.0005
+2025-12-16 18:13:41 Number of iterations: 80, loss: 0.00127, lr: 0.0005
+2025-12-16 18:16:10 Epoch 21/100 (lr=0.0005), train loss 0.00121
+2025-12-16 18:19:16 Number of iterations: 10, loss: 0.00108, lr: 0.0005
+2025-12-16 18:22:21 Number of iterations: 20, loss: 0.00126, lr: 0.0005
+2025-12-16 18:25:28 Number of iterations: 30, loss: 0.00107, lr: 0.0005
+2025-12-16 18:28:35 Number of iterations: 40, loss: 0.00148, lr: 0.0005
+2025-12-16 18:31:42 Number of iterations: 50, loss: 0.00186, lr: 0.0005
+2025-12-16 18:34:49 Number of iterations: 60, loss: 0.00113, lr: 0.0005
+2025-12-16 18:37:56 Number of iterations: 70, loss: 0.00129, lr: 0.0005
+2025-12-16 18:41:03 Number of iterations: 80, loss: 0.00116, lr: 0.0005
+2025-12-16 18:43:30 Epoch 22/100 (lr=0.0005), train loss 0.00122
+2025-12-16 18:46:37 Number of iterations: 10, loss: 0.00114, lr: 0.0005
+2025-12-16 18:49:44 Number of iterations: 20, loss: 0.00119, lr: 0.0005
+2025-12-16 18:52:51 Number of iterations: 30, loss: 0.00114, lr: 0.0005
+2025-12-16 18:56:00 Number of iterations: 40, loss: 0.00180, lr: 0.0005
+2025-12-16 18:59:08 Number of iterations: 50, loss: 0.00138, lr: 0.0005
+2025-12-16 19:02:15 Number of iterations: 60, loss: 0.00091, lr: 0.0005
+2025-12-16 19:05:22 Number of iterations: 70, loss: 0.00114, lr: 0.0005
+2025-12-16 19:08:28 Number of iterations: 80, loss: 0.00126, lr: 0.0005
+2025-12-16 19:10:57 Epoch 23/100 (lr=0.0005), train loss 0.00114
+2025-12-16 19:14:02 Number of iterations: 10, loss: 0.00099, lr: 0.0005
+2025-12-16 19:17:08 Number of iterations: 20, loss: 0.00144, lr: 0.0005
+2025-12-16 19:20:15 Number of iterations: 30, loss: 0.00094, lr: 0.0005
+2025-12-16 19:23:21 Number of iterations: 40, loss: 0.00087, lr: 0.0005
+2025-12-16 19:26:28 Number of iterations: 50, loss: 0.00119, lr: 0.0005
+2025-12-16 19:29:35 Number of iterations: 60, loss: 0.00095, lr: 0.0005
+2025-12-16 19:32:42 Number of iterations: 70, loss: 0.00126, lr: 0.0005
+2025-12-16 19:35:49 Number of iterations: 80, loss: 0.00087, lr: 0.0005
+2025-12-16 19:38:16 Epoch 24/100 (lr=0.0005), train loss 0.00111
+2025-12-16 19:41:24 Number of iterations: 10, loss: 0.00099, lr: 0.0005
+2025-12-16 19:44:30 Number of iterations: 20, loss: 0.00100, lr: 0.0005
+2025-12-16 19:47:36 Number of iterations: 30, loss: 0.00088, lr: 0.0005
+2025-12-16 19:50:42 Number of iterations: 40, loss: 0.00178, lr: 0.0005
+2025-12-16 19:53:50 Number of iterations: 50, loss: 0.00109, lr: 0.0005
+2025-12-16 19:56:58 Number of iterations: 60, loss: 0.00099, lr: 0.0005
+2025-12-16 20:00:04 Number of iterations: 70, loss: 0.00139, lr: 0.0005
+2025-12-16 20:03:11 Number of iterations: 80, loss: 0.00091, lr: 0.0005
+2025-12-16 20:05:39 Epoch 25/100 (lr=0.0005), train loss 0.00120
+2025-12-16 20:08:46 Number of iterations: 10, loss: 0.00125, lr: 0.0005
+2025-12-16 20:11:52 Number of iterations: 20, loss: 0.00116, lr: 0.0005
+2025-12-16 20:14:58 Number of iterations: 30, loss: 0.00119, lr: 0.0005
+2025-12-16 20:18:05 Number of iterations: 40, loss: 0.00121, lr: 0.0005
+2025-12-16 20:21:11 Number of iterations: 50, loss: 0.00132, lr: 0.0005
+2025-12-16 20:24:19 Number of iterations: 60, loss: 0.00124, lr: 0.0005
+2025-12-16 20:27:27 Number of iterations: 70, loss: 0.00090, lr: 0.0005
+2025-12-16 20:30:34 Number of iterations: 80, loss: 0.00162, lr: 0.0005
+2025-12-16 20:33:01 Epoch 26/100 (lr=0.0005), train loss 0.00119
+2025-12-16 20:36:08 Number of iterations: 10, loss: 0.00112, lr: 0.0005
+2025-12-16 20:39:14 Number of iterations: 20, loss: 0.00143, lr: 0.0005
+2025-12-16 20:42:22 Number of iterations: 30, loss: 0.00069, lr: 0.0005
+2025-12-16 20:45:29 Number of iterations: 40, loss: 0.00077, lr: 0.0005
+2025-12-16 20:48:35 Number of iterations: 50, loss: 0.00084, lr: 0.0005
+2025-12-16 20:51:43 Number of iterations: 60, loss: 0.00164, lr: 0.0005
+2025-12-16 20:54:51 Number of iterations: 70, loss: 0.00116, lr: 0.0005
+2025-12-16 20:57:59 Number of iterations: 80, loss: 0.00081, lr: 0.0005
+2025-12-16 21:00:26 Epoch 27/100 (lr=0.0005), train loss 0.00113
+2025-12-16 21:03:33 Number of iterations: 10, loss: 0.00120, lr: 0.0005
+2025-12-16 21:06:40 Number of iterations: 20, loss: 0.00145, lr: 0.0005
+2025-12-16 21:09:46 Number of iterations: 30, loss: 0.00091, lr: 0.0005
+2025-12-16 21:12:53 Number of iterations: 40, loss: 0.00143, lr: 0.0005
+2025-12-16 21:15:59 Number of iterations: 50, loss: 0.00099, lr: 0.0005
+2025-12-16 21:19:05 Number of iterations: 60, loss: 0.00102, lr: 0.0005
+2025-12-16 21:22:11 Number of iterations: 70, loss: 0.00118, lr: 0.0005
+2025-12-16 21:25:18 Number of iterations: 80, loss: 0.00089, lr: 0.0005
+2025-12-16 21:27:46 Epoch 28/100 (lr=0.0005), train loss 0.00115
+2025-12-16 21:30:53 Number of iterations: 10, loss: 0.00158, lr: 0.0005
+2025-12-16 21:34:01 Number of iterations: 20, loss: 0.00108, lr: 0.0005
+2025-12-16 21:37:07 Number of iterations: 30, loss: 0.00102, lr: 0.0005
+2025-12-16 21:40:15 Number of iterations: 40, loss: 0.00084, lr: 0.0005
+2025-12-16 21:43:22 Number of iterations: 50, loss: 0.00119, lr: 0.0005
+2025-12-16 21:46:29 Number of iterations: 60, loss: 0.00101, lr: 0.0005
+2025-12-16 21:49:36 Number of iterations: 70, loss: 0.00085, lr: 0.0005
+2025-12-16 21:52:44 Number of iterations: 80, loss: 0.00160, lr: 0.0005
+2025-12-16 21:55:14 Epoch 29/100 (lr=0.0005), train loss 0.00106
+2025-12-16 21:58:22 Number of iterations: 10, loss: 0.00122, lr: 0.0005
+2025-12-16 22:01:28 Number of iterations: 20, loss: 0.00103, lr: 0.0005
+2025-12-16 22:04:35 Number of iterations: 30, loss: 0.00072, lr: 0.0005
+2025-12-16 22:07:41 Number of iterations: 40, loss: 0.00102, lr: 0.0005
+2025-12-16 22:10:47 Number of iterations: 50, loss: 0.00106, lr: 0.0005
+2025-12-16 22:13:54 Number of iterations: 60, loss: 0.00095, lr: 0.0005
+2025-12-16 22:17:01 Number of iterations: 70, loss: 0.00097, lr: 0.0005
+2025-12-16 22:20:08 Number of iterations: 80, loss: 0.00125, lr: 0.0005
+2025-12-16 22:22:35 Training for epoch 30 done, starting evaluation
+2025-12-16 22:23:19 Epoch 30/100 (lr=0.0005), train loss 0.00108, valid loss 0.00176
+2025-12-16 22:23:19 Model performance:
+2025-12-16 22:23:19   metrics/test.rmse:           5.54
+2025-12-16 22:23:19   metrics/test.rmse_pcutoff:   3.43
+2025-12-16 22:23:19   metrics/test.mAP:           97.70
+2025-12-16 22:23:19   metrics/test.mAR:           97.84
+2025-12-16 22:26:27 Number of iterations: 10, loss: 0.00123, lr: 0.0005
+2025-12-16 22:29:34 Number of iterations: 20, loss: 0.00105, lr: 0.0005
+2025-12-16 22:32:41 Number of iterations: 30, loss: 0.00092, lr: 0.0005
+2025-12-16 22:35:46 Number of iterations: 40, loss: 0.00077, lr: 0.0005
+2025-12-16 22:38:52 Number of iterations: 50, loss: 0.00109, lr: 0.0005
+2025-12-16 22:41:59 Number of iterations: 60, loss: 0.00097, lr: 0.0005
+2025-12-16 22:45:05 Number of iterations: 70, loss: 0.00109, lr: 0.0005
+2025-12-16 22:48:12 Number of iterations: 80, loss: 0.00089, lr: 0.0005
+2025-12-16 22:50:38 Epoch 31/100 (lr=0.0005), train loss 0.00109
+2025-12-16 22:53:45 Number of iterations: 10, loss: 0.00095, lr: 0.0005
+2025-12-16 22:56:52 Number of iterations: 20, loss: 0.00099, lr: 0.0005
+2025-12-16 23:00:00 Number of iterations: 30, loss: 0.00107, lr: 0.0005
+2025-12-16 23:03:07 Number of iterations: 40, loss: 0.00083, lr: 0.0005
+2025-12-16 23:06:13 Number of iterations: 50, loss: 0.00094, lr: 0.0005
+2025-12-16 23:09:19 Number of iterations: 60, loss: 0.00090, lr: 0.0005
+2025-12-16 23:12:26 Number of iterations: 70, loss: 0.00097, lr: 0.0005
+2025-12-16 23:15:33 Number of iterations: 80, loss: 0.00135, lr: 0.0005
+2025-12-16 23:18:00 Epoch 32/100 (lr=0.0005), train loss 0.00104
+2025-12-16 23:21:06 Number of iterations: 10, loss: 0.00125, lr: 0.0005
+2025-12-16 23:24:16 Number of iterations: 20, loss: 0.00100, lr: 0.0005
+2025-12-16 23:27:23 Number of iterations: 30, loss: 0.00070, lr: 0.0005
+2025-12-16 23:30:28 Number of iterations: 40, loss: 0.00111, lr: 0.0005
+2025-12-16 23:33:35 Number of iterations: 50, loss: 0.00131, lr: 0.0005
+2025-12-16 23:36:42 Number of iterations: 60, loss: 0.00119, lr: 0.0005
+2025-12-16 23:39:49 Number of iterations: 70, loss: 0.00095, lr: 0.0005
+2025-12-16 23:42:56 Number of iterations: 80, loss: 0.00085, lr: 0.0005
+2025-12-16 23:45:23 Epoch 33/100 (lr=0.0005), train loss 0.00105
+2025-12-16 23:48:29 Number of iterations: 10, loss: 0.00094, lr: 0.0005
+2025-12-16 23:51:36 Number of iterations: 20, loss: 0.00075, lr: 0.0005
+2025-12-16 23:54:44 Number of iterations: 30, loss: 0.00108, lr: 0.0005
+2025-12-16 23:57:52 Number of iterations: 40, loss: 0.00114, lr: 0.0005
+2025-12-17 00:00:59 Number of iterations: 50, loss: 0.00088, lr: 0.0005
+2025-12-17 00:04:12 Number of iterations: 60, loss: 0.00115, lr: 0.0005
+2025-12-17 00:07:20 Number of iterations: 70, loss: 0.00098, lr: 0.0005
+2025-12-17 00:10:28 Number of iterations: 80, loss: 0.00107, lr: 0.0005
+2025-12-17 00:12:57 Epoch 34/100 (lr=0.0005), train loss 0.00108
+2025-12-17 00:16:06 Number of iterations: 10, loss: 0.00117, lr: 0.0005
+2025-12-17 00:19:14 Number of iterations: 20, loss: 0.00158, lr: 0.0005
+2025-12-17 00:22:21 Number of iterations: 30, loss: 0.00109, lr: 0.0005
+2025-12-17 00:25:27 Number of iterations: 40, loss: 0.00126, lr: 0.0005
+2025-12-17 00:28:35 Number of iterations: 50, loss: 0.00123, lr: 0.0005
+2025-12-17 00:31:41 Number of iterations: 60, loss: 0.00115, lr: 0.0005
+2025-12-17 00:34:47 Number of iterations: 70, loss: 0.00118, lr: 0.0005
+2025-12-17 00:37:52 Number of iterations: 80, loss: 0.00129, lr: 0.0005
+2025-12-17 00:40:20 Epoch 35/100 (lr=0.0005), train loss 0.00110
+2025-12-17 00:43:26 Number of iterations: 10, loss: 0.00116, lr: 0.0005
+2025-12-17 00:46:33 Number of iterations: 20, loss: 0.00091, lr: 0.0005
+2025-12-17 00:49:40 Number of iterations: 30, loss: 0.00088, lr: 0.0005
+2025-12-17 00:52:46 Number of iterations: 40, loss: 0.00095, lr: 0.0005
+2025-12-17 00:55:53 Number of iterations: 50, loss: 0.00090, lr: 0.0005
+2025-12-17 00:59:00 Number of iterations: 60, loss: 0.00087, lr: 0.0005
+2025-12-17 01:02:06 Number of iterations: 70, loss: 0.00144, lr: 0.0005
+2025-12-17 01:05:12 Number of iterations: 80, loss: 0.00080, lr: 0.0005
+2025-12-17 01:07:39 Epoch 36/100 (lr=0.0005), train loss 0.00099
+2025-12-17 01:10:45 Number of iterations: 10, loss: 0.00088, lr: 0.0005
+2025-12-17 01:13:52 Number of iterations: 20, loss: 0.00089, lr: 0.0005
+2025-12-17 01:16:57 Number of iterations: 30, loss: 0.00091, lr: 0.0005
+2025-12-17 01:20:04 Number of iterations: 40, loss: 0.00085, lr: 0.0005
+2025-12-17 01:23:09 Number of iterations: 50, loss: 0.00066, lr: 0.0005
+2025-12-17 01:26:15 Number of iterations: 60, loss: 0.00068, lr: 0.0005
+2025-12-17 01:29:23 Number of iterations: 70, loss: 0.00096, lr: 0.0005
+2025-12-17 01:32:30 Number of iterations: 80, loss: 0.00092, lr: 0.0005
+2025-12-17 01:34:57 Epoch 37/100 (lr=0.0005), train loss 0.00100
+2025-12-17 01:38:04 Number of iterations: 10, loss: 0.00106, lr: 0.0005
+2025-12-17 01:41:13 Number of iterations: 20, loss: 0.00100, lr: 0.0005
+2025-12-17 01:44:20 Number of iterations: 30, loss: 0.00115, lr: 0.0005
+2025-12-17 01:47:27 Number of iterations: 40, loss: 0.00110, lr: 0.0005
+2025-12-17 01:50:33 Number of iterations: 50, loss: 0.00120, lr: 0.0005
+2025-12-17 01:53:40 Number of iterations: 60, loss: 0.00121, lr: 0.0005
+2025-12-17 01:56:48 Number of iterations: 70, loss: 0.00087, lr: 0.0005
+2025-12-17 01:59:56 Number of iterations: 80, loss: 0.00084, lr: 0.0005
+2025-12-17 02:02:25 Epoch 38/100 (lr=0.0005), train loss 0.00104
+2025-12-17 02:05:33 Number of iterations: 10, loss: 0.00076, lr: 0.0005
+2025-12-17 02:08:40 Number of iterations: 20, loss: 0.00100, lr: 0.0005
+2025-12-17 02:11:49 Number of iterations: 30, loss: 0.00062, lr: 0.0005
+2025-12-17 02:14:55 Number of iterations: 40, loss: 0.00106, lr: 0.0005
+2025-12-17 02:18:02 Number of iterations: 50, loss: 0.00128, lr: 0.0005
+2025-12-17 02:21:10 Number of iterations: 60, loss: 0.00111, lr: 0.0005
+2025-12-17 02:24:19 Number of iterations: 70, loss: 0.00080, lr: 0.0005
+2025-12-17 02:27:27 Number of iterations: 80, loss: 0.00149, lr: 0.0005
+2025-12-17 02:29:55 Epoch 39/100 (lr=0.0005), train loss 0.00098
+2025-12-17 02:33:02 Number of iterations: 10, loss: 0.00108, lr: 0.0005
+2025-12-17 02:36:09 Number of iterations: 20, loss: 0.00116, lr: 0.0005
+2025-12-17 02:39:16 Number of iterations: 30, loss: 0.00072, lr: 0.0005
+2025-12-17 02:42:25 Number of iterations: 40, loss: 0.00070, lr: 0.0005
+2025-12-17 02:45:31 Number of iterations: 50, loss: 0.00065, lr: 0.0005
+2025-12-17 02:48:38 Number of iterations: 60, loss: 0.00060, lr: 0.0005
+2025-12-17 02:51:45 Number of iterations: 70, loss: 0.00074, lr: 0.0005
+2025-12-17 02:54:53 Number of iterations: 80, loss: 0.00100, lr: 0.0005
+2025-12-17 02:57:21 Training for epoch 40 done, starting evaluation
+2025-12-17 02:58:06 Epoch 40/100 (lr=0.0005), train loss 0.00096, valid loss 0.00178
+2025-12-17 02:58:06 Model performance:
+2025-12-17 02:58:06   metrics/test.rmse:           5.10
+2025-12-17 02:58:06   metrics/test.rmse_pcutoff:   3.46
+2025-12-17 02:58:06   metrics/test.mAP:           97.64
+2025-12-17 02:58:06   metrics/test.mAR:           97.84
+2025-12-17 03:01:11 Number of iterations: 10, loss: 0.00084, lr: 0.0005
+2025-12-17 03:04:18 Number of iterations: 20, loss: 0.00107, lr: 0.0005
+2025-12-17 03:07:25 Number of iterations: 30, loss: 0.00079, lr: 0.0005
+2025-12-17 03:10:31 Number of iterations: 40, loss: 0.00088, lr: 0.0005
+2025-12-17 03:13:38 Number of iterations: 50, loss: 0.00097, lr: 0.0005
+2025-12-17 03:16:45 Number of iterations: 60, loss: 0.00099, lr: 0.0005
+2025-12-17 03:19:52 Number of iterations: 70, loss: 0.00097, lr: 0.0005
+2025-12-17 03:22:59 Number of iterations: 80, loss: 0.00087, lr: 0.0005
+2025-12-17 03:25:28 Epoch 41/100 (lr=0.0005), train loss 0.00100
+2025-12-17 03:28:37 Number of iterations: 10, loss: 0.00078, lr: 0.0005
+2025-12-17 03:31:45 Number of iterations: 20, loss: 0.00089, lr: 0.0005
+2025-12-17 03:34:52 Number of iterations: 30, loss: 0.00111, lr: 0.0005
+2025-12-17 03:37:59 Number of iterations: 40, loss: 0.00107, lr: 0.0005
+2025-12-17 03:41:07 Number of iterations: 50, loss: 0.00100, lr: 0.0005
+2025-12-17 03:44:14 Number of iterations: 60, loss: 0.00131, lr: 0.0005
+2025-12-17 03:47:21 Number of iterations: 70, loss: 0.00081, lr: 0.0005
+2025-12-17 03:50:28 Number of iterations: 80, loss: 0.00110, lr: 0.0005
+2025-12-17 03:52:56 Epoch 42/100 (lr=0.0005), train loss 0.00096
+2025-12-17 03:56:06 Number of iterations: 10, loss: 0.00081, lr: 0.0005
+2025-12-17 03:59:14 Number of iterations: 20, loss: 0.00094, lr: 0.0005
+2025-12-17 04:02:20 Number of iterations: 30, loss: 0.00091, lr: 0.0005
+2025-12-17 04:05:27 Number of iterations: 40, loss: 0.00097, lr: 0.0005
+2025-12-17 04:08:33 Number of iterations: 50, loss: 0.00109, lr: 0.0005
+2025-12-17 04:11:39 Number of iterations: 60, loss: 0.00065, lr: 0.0005
+2025-12-17 04:14:46 Number of iterations: 70, loss: 0.00103, lr: 0.0005
+2025-12-17 04:17:52 Number of iterations: 80, loss: 0.00099, lr: 0.0005
+2025-12-17 04:20:20 Epoch 43/100 (lr=0.0005), train loss 0.00091
+2025-12-17 04:23:28 Number of iterations: 10, loss: 0.00094, lr: 0.0005
+2025-12-17 04:26:34 Number of iterations: 20, loss: 0.00089, lr: 0.0005
+2025-12-17 04:29:42 Number of iterations: 30, loss: 0.00086, lr: 0.0005
+2025-12-17 04:32:50 Number of iterations: 40, loss: 0.00133, lr: 0.0005
+2025-12-17 04:35:57 Number of iterations: 50, loss: 0.00087, lr: 0.0005
+2025-12-17 04:39:03 Number of iterations: 60, loss: 0.00097, lr: 0.0005
+2025-12-17 04:42:11 Number of iterations: 70, loss: 0.00087, lr: 0.0005
+2025-12-17 04:45:17 Number of iterations: 80, loss: 0.00095, lr: 0.0005
+2025-12-17 04:47:44 Epoch 44/100 (lr=0.0005), train loss 0.00093
+2025-12-17 04:50:51 Number of iterations: 10, loss: 0.00077, lr: 0.0005
+2025-12-17 04:53:58 Number of iterations: 20, loss: 0.00143, lr: 0.0005
+2025-12-17 04:57:07 Number of iterations: 30, loss: 0.00093, lr: 0.0005
+2025-12-17 05:00:13 Number of iterations: 40, loss: 0.00080, lr: 0.0005
+2025-12-17 05:03:20 Number of iterations: 50, loss: 0.00094, lr: 0.0005
+2025-12-17 05:06:28 Number of iterations: 60, loss: 0.00072, lr: 0.0005
+2025-12-17 05:09:34 Number of iterations: 70, loss: 0.00085, lr: 0.0005
+2025-12-17 05:12:41 Number of iterations: 80, loss: 0.00079, lr: 0.0005
+2025-12-17 05:15:09 Epoch 45/100 (lr=0.0005), train loss 0.00094
+2025-12-17 05:18:16 Number of iterations: 10, loss: 0.00084, lr: 0.0005
+2025-12-17 05:21:23 Number of iterations: 20, loss: 0.00074, lr: 0.0005
+2025-12-17 05:24:32 Number of iterations: 30, loss: 0.00076, lr: 0.0005
+2025-12-17 05:27:40 Number of iterations: 40, loss: 0.00115, lr: 0.0005
+2025-12-17 05:30:47 Number of iterations: 50, loss: 0.00051, lr: 0.0005
+2025-12-17 05:33:53 Number of iterations: 60, loss: 0.00054, lr: 0.0005
+2025-12-17 05:37:01 Number of iterations: 70, loss: 0.00089, lr: 0.0005
+2025-12-17 05:40:08 Number of iterations: 80, loss: 0.00098, lr: 0.0005
+2025-12-17 05:42:37 Epoch 46/100 (lr=0.0005), train loss 0.00090
+2025-12-17 05:45:44 Number of iterations: 10, loss: 0.00137, lr: 0.0005
+2025-12-17 05:48:51 Number of iterations: 20, loss: 0.00067, lr: 0.0005
+2025-12-17 05:51:58 Number of iterations: 30, loss: 0.00080, lr: 0.0005
+2025-12-17 05:55:06 Number of iterations: 40, loss: 0.00099, lr: 0.0005
+2025-12-17 05:58:14 Number of iterations: 50, loss: 0.00085, lr: 0.0005
+2025-12-17 06:01:21 Number of iterations: 60, loss: 0.00080, lr: 0.0005
+2025-12-17 06:04:27 Number of iterations: 70, loss: 0.00091, lr: 0.0005
+2025-12-17 06:07:34 Number of iterations: 80, loss: 0.00101, lr: 0.0005
+2025-12-17 06:10:02 Epoch 47/100 (lr=0.0005), train loss 0.00095
+2025-12-17 06:13:08 Number of iterations: 10, loss: 0.00123, lr: 0.0005
+2025-12-17 06:16:16 Number of iterations: 20, loss: 0.00072, lr: 0.0005
+2025-12-17 06:19:23 Number of iterations: 30, loss: 0.00072, lr: 0.0005
+2025-12-17 06:22:29 Number of iterations: 40, loss: 0.00097, lr: 0.0005
+2025-12-17 06:25:38 Number of iterations: 50, loss: 0.00102, lr: 0.0005
+2025-12-17 06:28:46 Number of iterations: 60, loss: 0.00090, lr: 0.0005
+2025-12-17 06:31:53 Number of iterations: 70, loss: 0.00093, lr: 0.0005
+2025-12-17 06:35:00 Number of iterations: 80, loss: 0.00088, lr: 0.0005
+2025-12-17 06:37:28 Epoch 48/100 (lr=0.0005), train loss 0.00096
+2025-12-17 06:40:36 Number of iterations: 10, loss: 0.00083, lr: 0.0005
+2025-12-17 06:43:43 Number of iterations: 20, loss: 0.00116, lr: 0.0005
+2025-12-17 06:46:50 Number of iterations: 30, loss: 0.00075, lr: 0.0005
+2025-12-17 06:49:57 Number of iterations: 40, loss: 0.00082, lr: 0.0005
+2025-12-17 06:53:05 Number of iterations: 50, loss: 0.00067, lr: 0.0005
+2025-12-17 06:56:14 Number of iterations: 60, loss: 0.00096, lr: 0.0005
+2025-12-17 06:59:21 Number of iterations: 70, loss: 0.00083, lr: 0.0005
+2025-12-17 07:02:29 Number of iterations: 80, loss: 0.00058, lr: 0.0005
+2025-12-17 07:04:56 Epoch 49/100 (lr=0.0005), train loss 0.00087
+2025-12-17 07:08:03 Number of iterations: 10, loss: 0.00066, lr: 0.0005
+2025-12-17 07:11:10 Number of iterations: 20, loss: 0.00076, lr: 0.0005
+2025-12-17 07:14:17 Number of iterations: 30, loss: 0.00112, lr: 0.0005
+2025-12-17 07:17:25 Number of iterations: 40, loss: 0.00097, lr: 0.0005
+2025-12-17 07:20:32 Number of iterations: 50, loss: 0.00063, lr: 0.0005
+2025-12-17 07:23:39 Number of iterations: 60, loss: 0.00073, lr: 0.0005
+2025-12-17 07:26:46 Number of iterations: 70, loss: 0.00067, lr: 0.0005
+2025-12-17 07:29:54 Number of iterations: 80, loss: 0.00097, lr: 0.0005
+2025-12-17 07:32:22 Training for epoch 50 done, starting evaluation
+2025-12-17 07:33:06 Epoch 50/100 (lr=0.0005), train loss 0.00086, valid loss 0.00186
+2025-12-17 07:33:06 Model performance:
+2025-12-17 07:33:06   metrics/test.rmse:           6.09
+2025-12-17 07:33:06   metrics/test.rmse_pcutoff:   3.61
+2025-12-17 07:33:06   metrics/test.mAP:           97.17
+2025-12-17 07:33:06   metrics/test.mAR:           97.57
+2025-12-17 07:36:12 Number of iterations: 10, loss: 0.00092, lr: 0.0005
+2025-12-17 07:39:19 Number of iterations: 20, loss: 0.00066, lr: 0.0005
+2025-12-17 07:42:27 Number of iterations: 30, loss: 0.00072, lr: 0.0005
+2025-12-17 07:45:33 Number of iterations: 40, loss: 0.00078, lr: 0.0005
+2025-12-17 07:48:40 Number of iterations: 50, loss: 0.00085, lr: 0.0005
+2025-12-17 07:51:47 Number of iterations: 60, loss: 0.00097, lr: 0.0005
+2025-12-17 07:54:54 Number of iterations: 70, loss: 0.00095, lr: 0.0005
+2025-12-17 07:58:02 Number of iterations: 80, loss: 0.00082, lr: 0.0005
+2025-12-17 08:00:30 Epoch 51/100 (lr=0.0005), train loss 0.00085
+2025-12-17 08:03:37 Number of iterations: 10, loss: 0.00078, lr: 0.0005
+2025-12-17 08:06:45 Number of iterations: 20, loss: 0.00079, lr: 0.0005
+2025-12-17 08:09:51 Number of iterations: 30, loss: 0.00090, lr: 0.0005
+2025-12-17 08:12:59 Number of iterations: 40, loss: 0.00104, lr: 0.0005
+2025-12-17 08:16:06 Number of iterations: 50, loss: 0.00062, lr: 0.0005
+2025-12-17 08:19:13 Number of iterations: 60, loss: 0.00059, lr: 0.0005
+2025-12-17 08:22:20 Number of iterations: 70, loss: 0.00079, lr: 0.0005
+2025-12-17 08:25:29 Number of iterations: 80, loss: 0.00080, lr: 0.0005
+2025-12-17 08:27:58 Epoch 52/100 (lr=0.0005), train loss 0.00086
+2025-12-17 08:31:05 Number of iterations: 10, loss: 0.00071, lr: 0.0005
+2025-12-17 08:34:14 Number of iterations: 20, loss: 0.00100, lr: 0.0005
+2025-12-17 08:37:29 Number of iterations: 30, loss: 0.00063, lr: 0.0005
+2025-12-17 08:40:45 Number of iterations: 40, loss: 0.00107, lr: 0.0005
+2025-12-17 08:43:52 Number of iterations: 50, loss: 0.00107, lr: 0.0005
+2025-12-17 08:46:58 Number of iterations: 60, loss: 0.00070, lr: 0.0005
+2025-12-17 08:50:06 Number of iterations: 70, loss: 0.00099, lr: 0.0005
+2025-12-17 08:52:59 Use selected bodyparts only: ['Nose', 'Left_ear', 'Right_ear', 'Centroid', 'Left_lateral', 'Right_lateral', 'Tail_base', 'Tail_end']
+2025-12-17 08:53:01 Selected bodyparts:
+	['Nose']
+2025-12-17 08:53:05 Selected bodyparts:
+	['Nose', 'Tail_base']
+2025-12-17 08:53:06 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral']
+2025-12-17 08:53:06 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral', 'Left_lateral']
+2025-12-17 08:53:07 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral', 'Left_lateral', 'Right_ear']
+2025-12-17 08:53:08 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral', 'Left_lateral', 'Right_ear', 'Left_ear']
+2025-12-17 08:53:08 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral', 'Left_lateral', 'Right_ear', 'Left_ear', 'Centroid']
+2025-12-17 09:08:01 Evaluation results for DLC_Resnet50_GPEDec9shuffle3_snapshot_030-results.csv (pcutoff: 0):
+2025-12-17 09:08:01 train rmse             2.23
+train rmse_pcutoff     2.23
+train mAP             98.84
+train mAR             99.72
+test rmse              3.44
+test rmse_pcutoff      3.44
+test mAP              97.13
+test mAR              97.57
+Name: (0.95, 3, 30, -1, 0), dtype: float64
+2025-12-17 09:08:26 Shuffle set to 2
+2025-12-17 09:08:26 Shuffle set to 2
+2025-12-17 09:08:26 Shuffle set to 2
+2025-12-17 09:08:26 Shuffle set to 2
+2025-12-17 09:08:26 Shuffle set to 2
+2025-12-17 09:08:26 Shuffle set to 2
+2025-12-17 09:08:26 Shuffle set to 2
+2025-12-17 09:08:27 Shuffle set to 2
+2025-12-17 09:23:16 Evaluation results for DLC_Resnet50_GPEDec9shuffle2_snapshot_070-results.csv (pcutoff: 0):
+2025-12-17 09:23:16 train rmse             2.10
+train rmse_pcutoff     2.10
+train mAP             99.47
+train mAR             99.82
+test rmse              2.67
+test rmse_pcutoff      2.67
+test mAP              99.28
+test mAR              99.46
+Name: (0.95, 2, 70, -1, 0), dtype: float64
+2025-12-17 10:37:50 Shuffle set to 3
+2025-12-17 10:37:50 Shuffle set to 3
+2025-12-17 10:37:50 Shuffle set to 3
+2025-12-17 10:37:50 Shuffle set to 3
+2025-12-17 10:37:50 Shuffle set to 3
+2025-12-17 10:37:50 Shuffle set to 3
+2025-12-17 10:37:50 Shuffle set to 3
+2025-12-17 10:37:51 Shuffle set to 3
+2025-12-17 10:37:52 Dynamic bodypart cropping ENABLED.
+2025-12-17 10:37:56 Save results as CSV ENABLED
+2025-12-17 10:37:57 Filtering predictions ENABLED
+2025-12-17 10:38:04 All video files have been cleared.
+2025-12-17 10:38:04 Cleared selected videos
+2025-12-17 10:38:40 Videos added to analyze:
+{'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240918_ic240724e-240918-152421_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240918_ic240724f-240918-162625_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240918_ic240724d-240918-173603_Vid1.avi'}
+Current video files:
+{'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240918_ic240724e-240918-152421_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240918_ic240724f-240918-162625_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240918_ic240724d-240918-173603_Vid1.avi'}
+2025-12-17 10:38:48 Analyzing videos with C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\dlc-models-pytorch\iteration-0\GPEDec9-trainset95shuffle3\train\snapshot-best-030.pt
+2025-12-17 10:38:50 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240918_ic240724e-240918-152421_Vid1.avi
+2025-12-17 10:38:50 Video metadata: 
+  Overall # of frames:    34340
+  Duration of video [s]:  3434.00
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-17 10:38:50 Running pose prediction with batch size 1
+2025-12-17 16:15:47 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240918_ic240724e-240918-152421_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_030.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240918_ic240724e-240918-152421_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_030_full.pickle
+2025-12-17 16:15:48 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240918_ic240724f-240918-162625_Vid1.avi
+2025-12-17 16:15:48 Video metadata: 
+  Overall # of frames:    35333
+  Duration of video [s]:  3533.30
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-17 16:15:48 Running pose prediction with batch size 1
+2025-12-17 18:30:41 Training with configuration:
+2025-12-17 18:30:41 data:
+2025-12-17 18:30:41   bbox_margin: 20
+2025-12-17 18:30:41   colormode: RGB
+2025-12-17 18:30:41   inference:
+2025-12-17 18:30:41     normalize_images: True
+2025-12-17 18:30:41     auto_padding:
+2025-12-17 18:30:41       pad_width_divisor: 32
+2025-12-17 18:30:41       pad_height_divisor: 32
+2025-12-17 18:30:41   train:
+2025-12-17 18:30:41     affine:
+2025-12-17 18:30:41       p: 0.5
+2025-12-17 18:30:41       rotation: 30
+2025-12-17 18:30:41       scaling: [0.5, 1.25]
+2025-12-17 18:30:41       translation: 0
+2025-12-17 18:30:41     crop_sampling:
+2025-12-17 18:30:41       width: 448
+2025-12-17 18:30:41       height: 448
+2025-12-17 18:30:41       max_shift: 0.1
+2025-12-17 18:30:41       method: hybrid
+2025-12-17 18:30:41     gaussian_noise: 12.75
+2025-12-17 18:30:41     motion_blur: True
+2025-12-17 18:30:41     normalize_images: True
+2025-12-17 18:30:41     auto_padding:
+2025-12-17 18:30:41       pad_width_divisor: 32
+2025-12-17 18:30:41       pad_height_divisor: 32
+2025-12-17 18:30:41 device: auto
+2025-12-17 18:30:41 metadata:
+2025-12-17 18:30:41   project_path: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09
+2025-12-17 18:30:41   pose_config_path: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\dlc-models-pytorch\iteration-0\GPEDec9-trainset95shuffle3\train\pytorch_config.yaml
+2025-12-17 18:30:41   bodyparts: ['Nose', 'Left_ear', 'Right_ear', 'Centroid', 'Left_lateral', 'Right_lateral', 'Tail_base', 'Tail_end']
+2025-12-17 18:30:41   unique_bodyparts: []
+2025-12-17 18:30:41   individuals: ['animal']
+2025-12-17 18:30:41   with_identity: None
+2025-12-17 18:30:41 method: bu
+2025-12-17 18:30:41 model:
+2025-12-17 18:30:41   backbone:
+2025-12-17 18:30:41     type: HRNet
+2025-12-17 18:30:41     model_name: hrnet_w32
+2025-12-17 18:30:41     freeze_bn_stats: True
+2025-12-17 18:30:41     freeze_bn_weights: False
+2025-12-17 18:30:41     interpolate_branches: False
+2025-12-17 18:30:41     increased_channel_count: False
+2025-12-17 18:30:41   backbone_output_channels: 32
+2025-12-17 18:30:41   heads:
+2025-12-17 18:30:41     bodypart:
+2025-12-17 18:30:41       type: HeatmapHead
+2025-12-17 18:30:41       weight_init: normal
+2025-12-17 18:30:41       predictor:
+2025-12-17 18:30:41         type: HeatmapPredictor
+2025-12-17 18:30:41         apply_sigmoid: False
+2025-12-17 18:30:41         clip_scores: True
+2025-12-17 18:30:41         location_refinement: True
+2025-12-17 18:30:41         locref_std: 7.2801
+2025-12-17 18:30:41       target_generator:
+2025-12-17 18:30:41         type: HeatmapGaussianGenerator
+2025-12-17 18:30:41         num_heatmaps: 8
+2025-12-17 18:30:41         pos_dist_thresh: 17
+2025-12-17 18:30:41         heatmap_mode: KEYPOINT
+2025-12-17 18:30:41         gradient_masking: False
+2025-12-17 18:30:41         generate_locref: True
+2025-12-17 18:30:41         locref_std: 7.2801
+2025-12-17 18:30:41       criterion:
+2025-12-17 18:30:41         heatmap:
+2025-12-17 18:30:41           type: WeightedMSECriterion
+2025-12-17 18:30:41           weight: 1.0
+2025-12-17 18:30:41         locref:
+2025-12-17 18:30:41           type: WeightedHuberCriterion
+2025-12-17 18:30:41           weight: 0.05
+2025-12-17 18:30:41       heatmap_config:
+2025-12-17 18:30:41         channels: [32, 8]
+2025-12-17 18:30:41         kernel_size: [3]
+2025-12-17 18:30:41         strides: [2]
+2025-12-17 18:30:41       locref_config:
+2025-12-17 18:30:41         channels: [32, 16]
+2025-12-17 18:30:41         kernel_size: [3]
+2025-12-17 18:30:41         strides: [2]
+2025-12-17 18:30:41 net_type: hrnet_w32
+2025-12-17 18:30:41 runner:
+2025-12-17 18:30:41   type: PoseTrainingRunner
+2025-12-17 18:30:41   gpus: None
+2025-12-17 18:30:41   key_metric: test.mAP
+2025-12-17 18:30:41   key_metric_asc: True
+2025-12-17 18:30:41   eval_interval: 10
+2025-12-17 18:30:41   optimizer:
+2025-12-17 18:30:41     type: AdamW
+2025-12-17 18:30:41     params:
+2025-12-17 18:30:41       lr: 0.0001
+2025-12-17 18:30:41   scheduler:
+2025-12-17 18:30:41     type: LRListScheduler
+2025-12-17 18:30:41     params:
+2025-12-17 18:30:41       lr_list: [[1e-05], [1e-06]]
+2025-12-17 18:30:41       milestones: [160, 190]
+2025-12-17 18:30:41   snapshots:
+2025-12-17 18:30:41     max_snapshots: 5
+2025-12-17 18:30:41     save_epochs: 10
+2025-12-17 18:30:41     save_optimizer_state: False
+2025-12-17 18:30:41 train_settings:
+2025-12-17 18:30:41   batch_size: 8
+2025-12-17 18:30:41   dataloader_workers: 0
+2025-12-17 18:30:41   dataloader_pin_memory: False
+2025-12-17 18:30:41   display_iters: 10
+2025-12-17 18:30:41   epochs: 100
+2025-12-17 18:30:41   seed: 42
+2025-12-17 18:30:41   weight_init:
+2025-12-17 18:30:41     dataset: superanimal_topviewmouse
+2025-12-17 18:30:41     snapshot_path: C:\Users\isaac.chang\Miniconda3\envs\DEEPLABCUT\lib\site-packages\deeplabcut\modelzoo\checkpoints\superanimal_topviewmouse_hrnet_w32.pt
+2025-12-17 18:30:41     with_decoder: False
+2025-12-17 18:30:41     memory_replay: False
+2025-12-17 18:30:42 Loading pretrained model weights: WeightInitialization(snapshot_path=WindowsPath('C:/Users/isaac.chang/Miniconda3/envs/DEEPLABCUT/lib/site-packages/deeplabcut/modelzoo/checkpoints/superanimal_topviewmouse_hrnet_w32.pt'), detector_snapshot_path=None, dataset='superanimal_topviewmouse', with_decoder=False, memory_replay=False, conversion_array=None, bodyparts=None)
+2025-12-17 18:30:42 The pose model is loading from C:\Users\isaac.chang\Miniconda3\envs\DEEPLABCUT\lib\site-packages\deeplabcut\modelzoo\checkpoints\superanimal_topviewmouse_hrnet_w32.pt
+2025-12-17 18:31:00 Network architecture set to RESNET_50
+2025-12-17 18:31:06 Exiting...
+2025-12-17 18:31:11 
+2025-12-17 18:31:14 Exiting...
+2025-12-17 18:33:34 Training with configuration:
+2025-12-17 18:33:34 data:
+2025-12-17 18:33:34   bbox_margin: 20
+2025-12-17 18:33:34   colormode: RGB
+2025-12-17 18:33:34   inference:
+2025-12-17 18:33:34     normalize_images: True
+2025-12-17 18:33:34   train:
+2025-12-17 18:33:34     affine:
+2025-12-17 18:33:34       p: 0.5
+2025-12-17 18:33:34       rotation: 30
+2025-12-17 18:33:34       scaling: [0.5, 1.25]
+2025-12-17 18:33:34       translation: 0
+2025-12-17 18:33:34     crop_sampling:
+2025-12-17 18:33:34       width: 448
+2025-12-17 18:33:34       height: 448
+2025-12-17 18:33:34       max_shift: 0.1
+2025-12-17 18:33:34       method: hybrid
+2025-12-17 18:33:34     gaussian_noise: 12.75
+2025-12-17 18:33:34     motion_blur: True
+2025-12-17 18:33:34     normalize_images: True
+2025-12-17 18:33:34 device: auto
+2025-12-17 18:33:34 metadata:
+2025-12-17 18:33:34   project_path: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09
+2025-12-17 18:33:34   pose_config_path: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\dlc-models-pytorch\iteration-0\GPEDec9-trainset95shuffle3\train\pytorch_config.yaml
+2025-12-17 18:33:34   bodyparts: ['Nose', 'Left_ear', 'Right_ear', 'Centroid', 'Left_lateral', 'Right_lateral', 'Tail_base', 'Tail_end']
+2025-12-17 18:33:34   unique_bodyparts: []
+2025-12-17 18:33:34   individuals: ['animal']
+2025-12-17 18:33:34   with_identity: None
+2025-12-17 18:33:34 method: bu
+2025-12-17 18:33:34 model:
+2025-12-17 18:33:34   backbone:
+2025-12-17 18:33:34     type: ResNet
+2025-12-17 18:33:34     model_name: resnet50_gn
+2025-12-17 18:33:34     output_stride: 16
+2025-12-17 18:33:34     freeze_bn_stats: False
+2025-12-17 18:33:34     freeze_bn_weights: False
+2025-12-17 18:33:34   backbone_output_channels: 2048
+2025-12-17 18:33:34   heads:
+2025-12-17 18:33:34     bodypart:
+2025-12-17 18:33:34       type: HeatmapHead
+2025-12-17 18:33:34       weight_init: normal
+2025-12-17 18:33:34       predictor:
+2025-12-17 18:33:34         type: HeatmapPredictor
+2025-12-17 18:33:34         apply_sigmoid: False
+2025-12-17 18:33:34         clip_scores: True
+2025-12-17 18:33:34         location_refinement: True
+2025-12-17 18:33:34         locref_std: 7.2801
+2025-12-17 18:33:34       target_generator:
+2025-12-17 18:33:34         type: HeatmapGaussianGenerator
+2025-12-17 18:33:34         num_heatmaps: 8
+2025-12-17 18:33:34         pos_dist_thresh: 17
+2025-12-17 18:33:34         heatmap_mode: KEYPOINT
+2025-12-17 18:33:34         gradient_masking: False
+2025-12-17 18:33:34         generate_locref: True
+2025-12-17 18:33:34         locref_std: 7.2801
+2025-12-17 18:33:34       criterion:
+2025-12-17 18:33:34         heatmap:
+2025-12-17 18:33:34           type: WeightedMSECriterion
+2025-12-17 18:33:34           weight: 1.0
+2025-12-17 18:33:34         locref:
+2025-12-17 18:33:34           type: WeightedHuberCriterion
+2025-12-17 18:33:34           weight: 0.05
+2025-12-17 18:33:34       heatmap_config:
+2025-12-17 18:33:34         channels: [2048, 8]
+2025-12-17 18:33:34         kernel_size: [3]
+2025-12-17 18:33:34         strides: [2]
+2025-12-17 18:33:34       locref_config:
+2025-12-17 18:33:34         channels: [2048, 16]
+2025-12-17 18:33:34         kernel_size: [3]
+2025-12-17 18:33:34         strides: [2]
+2025-12-17 18:33:34 net_type: resnet_50
+2025-12-17 18:33:34 runner:
+2025-12-17 18:33:34   type: PoseTrainingRunner
+2025-12-17 18:33:34   gpus: None
+2025-12-17 18:33:34   key_metric: test.mAP
+2025-12-17 18:33:34   key_metric_asc: True
+2025-12-17 18:33:34   eval_interval: 10
+2025-12-17 18:33:34   optimizer:
+2025-12-17 18:33:34     type: AdamW
+2025-12-17 18:33:34     params:
+2025-12-17 18:33:34       lr: 0.0005
+2025-12-17 18:33:34   scheduler:
+2025-12-17 18:33:34     type: LRListScheduler
+2025-12-17 18:33:34     params:
+2025-12-17 18:33:34       lr_list: [[0.0001], [1e-05]]
+2025-12-17 18:33:34       milestones: [90, 120]
+2025-12-17 18:33:34   snapshots:
+2025-12-17 18:33:34     max_snapshots: 5
+2025-12-17 18:33:34     save_epochs: 10
+2025-12-17 18:33:34     save_optimizer_state: False
+2025-12-17 18:33:34 train_settings:
+2025-12-17 18:33:34   batch_size: 8
+2025-12-17 18:33:34   dataloader_workers: 0
+2025-12-17 18:33:34   dataloader_pin_memory: False
+2025-12-17 18:33:34   display_iters: 10
+2025-12-17 18:33:34   epochs: 100
+2025-12-17 18:33:34   seed: 42
+2025-12-17 18:33:34   weight_init:
+2025-12-17 18:33:34     dataset: superanimal_topviewmouse
+2025-12-17 18:33:34     snapshot_path: C:\Users\isaac.chang\Miniconda3\envs\DEEPLABCUT\lib\site-packages\deeplabcut\modelzoo\checkpoints\superanimal_topviewmouse_resnet_50.pt
+2025-12-17 18:33:34     with_decoder: False
+2025-12-17 18:33:34     memory_replay: False
+2025-12-17 18:33:35 Loading pretrained model weights: WeightInitialization(snapshot_path=WindowsPath('C:/Users/isaac.chang/Miniconda3/envs/DEEPLABCUT/lib/site-packages/deeplabcut/modelzoo/checkpoints/superanimal_topviewmouse_resnet_50.pt'), detector_snapshot_path=None, dataset='superanimal_topviewmouse', with_decoder=False, memory_replay=False, conversion_array=None, bodyparts=None)
+2025-12-17 18:33:35 The pose model is loading from C:\Users\isaac.chang\Miniconda3\envs\DEEPLABCUT\lib\site-packages\deeplabcut\modelzoo\checkpoints\superanimal_topviewmouse_resnet_50.pt
+2025-12-17 18:33:36 Data Transforms:
+2025-12-17 18:33:36   Training:   Compose([
+  Affine(always_apply=False, p=0.5, interpolation=1, mask_interpolation=0, cval=0, mode=0, scale={'x': (0.5, 1.25), 'y': (0.5, 1.25)}, translate_percent=None, translate_px={'x': (0, 0), 'y': (0, 0)}, rotate=(-30, 30), fit_output=False, shear={'x': (0.0, 0.0), 'y': (0.0, 0.0)}, cval_mask=0, keep_ratio=True, rotate_method='largest_box'),
+  PadIfNeeded(always_apply=True, p=1.0, min_height=448, min_width=448, pad_height_divisor=None, pad_width_divisor=None, position=PositionType.CENTER, border_mode=0, value=None, mask_value=None),
+  KeypointAwareCrop(always_apply=True, p=1.0, width=448, height=448, max_shift=0.1, crop_sampling='hybrid'),
+  MotionBlur(always_apply=False, p=0.5, blur_limit=(3, 7), allow_shifted=True),
+  GaussNoise(always_apply=False, p=0.5, var_limit=(0, 162.5625), per_channel=True, mean=0),
+  Normalize(always_apply=False, p=1.0, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], max_pixel_value=255.0),
+], p=1.0, bbox_params={'format': 'coco', 'label_fields': ['bbox_labels'], 'min_area': 0.0, 'min_visibility': 0.0, 'min_width': 0.0, 'min_height': 0.0, 'check_each_transform': True}, keypoint_params={'format': 'xy', 'label_fields': ['class_labels'], 'remove_invisible': False, 'angle_in_degrees': True, 'check_each_transform': True}, additional_targets={}, is_check_shapes=True)
+2025-12-17 18:33:36   Validation: Compose([
+  Normalize(always_apply=False, p=1.0, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], max_pixel_value=255.0),
+], p=1.0, bbox_params={'format': 'coco', 'label_fields': ['bbox_labels'], 'min_area': 0.0, 'min_visibility': 0.0, 'min_width': 0.0, 'min_height': 0.0, 'check_each_transform': True}, keypoint_params={'format': 'xy', 'label_fields': ['class_labels'], 'remove_invisible': False, 'angle_in_degrees': True, 'check_each_transform': True}, additional_targets={}, is_check_shapes=True)
+2025-12-17 18:33:36 Using 769 images and 41 for testing
+2025-12-17 18:33:36 
+Starting pose model training...
+--------------------------------------------------
+2025-12-17 18:36:45 Number of iterations: 10, loss: 0.00114, lr: 0.0005
+2025-12-17 18:39:53 Number of iterations: 20, loss: 0.00119, lr: 0.0005
+2025-12-17 18:43:03 Number of iterations: 30, loss: 0.00182, lr: 0.0005
+2025-12-17 18:46:09 Number of iterations: 40, loss: 0.00176, lr: 0.0005
+2025-12-17 18:49:17 Number of iterations: 50, loss: 0.00144, lr: 0.0005
+2025-12-17 18:52:24 Number of iterations: 60, loss: 0.00120, lr: 0.0005
+2025-12-17 18:55:33 Number of iterations: 70, loss: 0.00108, lr: 0.0005
+2025-12-17 18:58:41 Number of iterations: 80, loss: 0.00104, lr: 0.0005
+2025-12-17 19:01:49 Number of iterations: 90, loss: 0.00110, lr: 0.0005
+2025-12-17 19:03:44 Epoch 31/130 (lr=0.0005), train loss 0.00122
+2025-12-17 19:06:51 Number of iterations: 10, loss: 0.00102, lr: 0.0005
+2025-12-17 19:09:58 Number of iterations: 20, loss: 0.00103, lr: 0.0005
+2025-12-17 19:13:04 Number of iterations: 30, loss: 0.00117, lr: 0.0005
+2025-12-17 19:16:12 Number of iterations: 40, loss: 0.00087, lr: 0.0005
+2025-12-17 19:19:22 Number of iterations: 50, loss: 0.00110, lr: 0.0005
+2025-12-17 19:22:35 Number of iterations: 60, loss: 0.00127, lr: 0.0005
+2025-12-17 19:25:45 Number of iterations: 70, loss: 0.00130, lr: 0.0005
+2025-12-17 19:28:57 Number of iterations: 80, loss: 0.00127, lr: 0.0005
+2025-12-17 19:32:06 Number of iterations: 90, loss: 0.00116, lr: 0.0005
+2025-12-17 19:34:02 Epoch 32/130 (lr=0.0005), train loss 0.00123
+2025-12-17 19:37:11 Number of iterations: 10, loss: 0.00154, lr: 0.0005
+2025-12-17 19:40:22 Number of iterations: 20, loss: 0.00145, lr: 0.0005
+2025-12-17 19:43:33 Number of iterations: 30, loss: 0.00097, lr: 0.0005
+2025-12-17 19:46:42 Number of iterations: 40, loss: 0.00138, lr: 0.0005
+2025-12-17 19:49:54 Number of iterations: 50, loss: 0.00123, lr: 0.0005
+2025-12-17 19:53:13 Number of iterations: 60, loss: 0.00124, lr: 0.0005
+2025-12-17 19:56:30 Number of iterations: 70, loss: 0.00106, lr: 0.0005
+2025-12-17 19:59:50 Number of iterations: 80, loss: 0.00102, lr: 0.0005
+2025-12-17 20:03:13 Number of iterations: 90, loss: 0.00123, lr: 0.0005
+2025-12-17 20:05:19 Epoch 33/130 (lr=0.0005), train loss 0.00118
+2025-12-17 20:08:43 Number of iterations: 10, loss: 0.00120, lr: 0.0005
+2025-12-17 20:12:09 Number of iterations: 20, loss: 0.00095, lr: 0.0005
+2025-12-17 20:15:29 Number of iterations: 30, loss: 0.00097, lr: 0.0005
+2025-12-17 20:18:56 Number of iterations: 40, loss: 0.00093, lr: 0.0005
+2025-12-17 20:22:21 Number of iterations: 50, loss: 0.00074, lr: 0.0005
+2025-12-17 20:25:49 Number of iterations: 60, loss: 0.00091, lr: 0.0005
+2025-12-17 20:29:17 Number of iterations: 70, loss: 0.00113, lr: 0.0005
+2025-12-17 20:32:36 Number of iterations: 80, loss: 0.00118, lr: 0.0005
+2025-12-17 20:36:01 Number of iterations: 90, loss: 0.00120, lr: 0.0005
+2025-12-17 20:38:07 Epoch 34/130 (lr=0.0005), train loss 0.00114
+2025-12-17 20:41:21 Number of iterations: 10, loss: 0.00131, lr: 0.0005
+2025-12-17 20:44:30 Number of iterations: 20, loss: 0.00157, lr: 0.0005
+2025-12-17 20:47:40 Number of iterations: 30, loss: 0.00110, lr: 0.0005
+2025-12-17 20:50:49 Number of iterations: 40, loss: 0.00105, lr: 0.0005
+2025-12-17 20:54:07 Number of iterations: 50, loss: 0.00096, lr: 0.0005
+2025-12-17 20:57:29 Number of iterations: 60, loss: 0.00092, lr: 0.0005
+2025-12-17 21:00:43 Number of iterations: 70, loss: 0.00148, lr: 0.0005
+2025-12-17 21:04:06 Number of iterations: 80, loss: 0.00124, lr: 0.0005
+2025-12-17 21:07:27 Number of iterations: 90, loss: 0.00113, lr: 0.0005
+2025-12-17 21:09:36 Epoch 35/130 (lr=0.0005), train loss 0.00115
+2025-12-17 21:12:52 Number of iterations: 10, loss: 0.00180, lr: 0.0005
+2025-12-17 21:16:04 Number of iterations: 20, loss: 0.00098, lr: 0.0005
+2025-12-17 21:19:14 Number of iterations: 30, loss: 0.00108, lr: 0.0005
+2025-12-17 21:22:23 Number of iterations: 40, loss: 0.00131, lr: 0.0005
+2025-12-17 21:25:31 Number of iterations: 50, loss: 0.00106, lr: 0.0005
+2025-12-17 21:28:44 Number of iterations: 60, loss: 0.00129, lr: 0.0005
+2025-12-17 21:32:05 Number of iterations: 70, loss: 0.00078, lr: 0.0005
+2025-12-17 21:35:23 Number of iterations: 80, loss: 0.00085, lr: 0.0005
+2025-12-17 21:38:34 Number of iterations: 90, loss: 0.00096, lr: 0.0005
+2025-12-17 21:40:41 Epoch 36/130 (lr=0.0005), train loss 0.00111
+2025-12-17 21:44:01 Number of iterations: 10, loss: 0.00090, lr: 0.0005
+2025-12-17 21:47:11 Number of iterations: 20, loss: 0.00104, lr: 0.0005
+2025-12-17 21:50:21 Number of iterations: 30, loss: 0.00084, lr: 0.0005
+2025-12-17 21:53:35 Number of iterations: 40, loss: 0.00111, lr: 0.0005
+2025-12-17 21:57:04 Number of iterations: 50, loss: 0.00133, lr: 0.0005
+2025-12-17 22:00:19 Number of iterations: 60, loss: 0.00104, lr: 0.0005
+2025-12-17 22:03:36 Number of iterations: 70, loss: 0.00099, lr: 0.0005
+2025-12-17 22:06:58 Number of iterations: 80, loss: 0.00125, lr: 0.0005
+2025-12-17 22:10:11 Number of iterations: 90, loss: 0.00123, lr: 0.0005
+2025-12-17 22:12:08 Epoch 37/130 (lr=0.0005), train loss 0.00116
+2025-12-17 22:15:23 Number of iterations: 10, loss: 0.00132, lr: 0.0005
+2025-12-17 22:18:45 Number of iterations: 20, loss: 0.00093, lr: 0.0005
+2025-12-17 22:21:57 Number of iterations: 30, loss: 0.00115, lr: 0.0005
+2025-12-17 22:25:05 Number of iterations: 40, loss: 0.00137, lr: 0.0005
+2025-12-17 22:28:13 Number of iterations: 50, loss: 0.00146, lr: 0.0005
+2025-12-17 22:31:23 Number of iterations: 60, loss: 0.00066, lr: 0.0005
+2025-12-17 22:34:45 Number of iterations: 70, loss: 0.00153, lr: 0.0005
+2025-12-17 22:38:04 Number of iterations: 80, loss: 0.00097, lr: 0.0005
+2025-12-17 22:41:15 Number of iterations: 90, loss: 0.00096, lr: 0.0005
+2025-12-17 22:43:11 Epoch 38/130 (lr=0.0005), train loss 0.00112
+2025-12-17 22:46:25 Number of iterations: 10, loss: 0.00141, lr: 0.0005
+2025-12-17 22:49:48 Number of iterations: 20, loss: 0.00080, lr: 0.0005
+2025-12-17 22:53:04 Number of iterations: 30, loss: 0.00086, lr: 0.0005
+2025-12-17 22:56:15 Number of iterations: 40, loss: 0.00112, lr: 0.0005
+2025-12-17 22:59:25 Number of iterations: 50, loss: 0.00087, lr: 0.0005
+2025-12-17 23:02:36 Number of iterations: 60, loss: 0.00119, lr: 0.0005
+2025-12-17 23:05:58 Number of iterations: 70, loss: 0.00104, lr: 0.0005
+2025-12-17 23:09:26 Number of iterations: 80, loss: 0.00116, lr: 0.0005
+2025-12-17 23:12:37 Number of iterations: 90, loss: 0.00114, lr: 0.0005
+2025-12-17 23:14:33 Epoch 39/130 (lr=0.0005), train loss 0.00114
+2025-12-17 23:17:45 Number of iterations: 10, loss: 0.00073, lr: 0.0005
+2025-12-17 23:20:52 Number of iterations: 20, loss: 0.00090, lr: 0.0005
+2025-12-17 23:24:01 Number of iterations: 30, loss: 0.00096, lr: 0.0005
+2025-12-17 23:27:10 Number of iterations: 40, loss: 0.00151, lr: 0.0005
+2025-12-17 23:30:16 Number of iterations: 50, loss: 0.00114, lr: 0.0005
+2025-12-17 23:33:24 Number of iterations: 60, loss: 0.00110, lr: 0.0005
+2025-12-17 23:36:33 Number of iterations: 70, loss: 0.00097, lr: 0.0005
+2025-12-17 23:39:39 Number of iterations: 80, loss: 0.00103, lr: 0.0005
+2025-12-17 23:42:48 Number of iterations: 90, loss: 0.00093, lr: 0.0005
+2025-12-17 23:44:43 Training for epoch 40 done, starting evaluation
+2025-12-17 23:45:33 Epoch 40/130 (lr=0.0005), train loss 0.00106, valid loss 0.00111
+2025-12-17 23:45:33 Model performance:
+2025-12-17 23:45:33   metrics/test.rmse:           2.70
+2025-12-17 23:45:33   metrics/test.rmse_pcutoff:   2.70
+2025-12-17 23:45:33   metrics/test.mAP:          100.00
+2025-12-17 23:45:33   metrics/test.mAR:          100.00
+2025-12-17 23:48:40 Number of iterations: 10, loss: 0.00122, lr: 0.0005
+2025-12-17 23:51:47 Number of iterations: 20, loss: 0.00092, lr: 0.0005
+2025-12-17 23:54:55 Number of iterations: 30, loss: 0.00105, lr: 0.0005
+2025-12-17 23:58:03 Number of iterations: 40, loss: 0.00102, lr: 0.0005
+2025-12-18 00:01:09 Number of iterations: 50, loss: 0.00082, lr: 0.0005
+2025-12-18 00:04:16 Number of iterations: 60, loss: 0.00075, lr: 0.0005
+2025-12-18 00:07:24 Number of iterations: 70, loss: 0.00116, lr: 0.0005
+2025-12-18 00:10:31 Number of iterations: 80, loss: 0.00110, lr: 0.0005
+2025-12-18 00:13:39 Number of iterations: 90, loss: 0.00099, lr: 0.0005
+2025-12-18 00:15:34 Epoch 41/130 (lr=0.0005), train loss 0.00104
+2025-12-18 00:18:42 Number of iterations: 10, loss: 0.00097, lr: 0.0005
+2025-12-18 00:21:50 Number of iterations: 20, loss: 0.00107, lr: 0.0005
+2025-12-18 00:24:58 Number of iterations: 30, loss: 0.00121, lr: 0.0005
+2025-12-18 00:28:07 Number of iterations: 40, loss: 0.00134, lr: 0.0005
+2025-12-18 00:31:15 Number of iterations: 50, loss: 0.00101, lr: 0.0005
+2025-12-18 00:34:22 Number of iterations: 60, loss: 0.00107, lr: 0.0005
+2025-12-18 00:37:31 Number of iterations: 70, loss: 0.00111, lr: 0.0005
+2025-12-18 00:40:40 Number of iterations: 80, loss: 0.00131, lr: 0.0005
+2025-12-18 00:43:48 Number of iterations: 90, loss: 0.00085, lr: 0.0005
+2025-12-18 00:45:44 Epoch 42/130 (lr=0.0005), train loss 0.00105
+2025-12-18 00:48:52 Number of iterations: 10, loss: 0.00097, lr: 0.0005
+2025-12-18 00:52:01 Number of iterations: 20, loss: 0.00112, lr: 0.0005
+2025-12-18 00:55:11 Number of iterations: 30, loss: 0.00147, lr: 0.0005
+2025-12-18 00:58:21 Number of iterations: 40, loss: 0.00117, lr: 0.0005
+2025-12-18 01:01:29 Number of iterations: 50, loss: 0.00115, lr: 0.0005
+2025-12-18 01:04:38 Number of iterations: 60, loss: 0.00128, lr: 0.0005
+2025-12-18 01:07:46 Number of iterations: 70, loss: 0.00103, lr: 0.0005
+2025-12-18 01:10:54 Number of iterations: 80, loss: 0.00104, lr: 0.0005
+2025-12-18 01:14:02 Number of iterations: 90, loss: 0.00067, lr: 0.0005
+2025-12-18 01:15:57 Epoch 43/130 (lr=0.0005), train loss 0.00102
+2025-12-18 01:19:05 Number of iterations: 10, loss: 0.00111, lr: 0.0005
+2025-12-18 01:22:13 Number of iterations: 20, loss: 0.00111, lr: 0.0005
+2025-12-18 01:25:20 Number of iterations: 30, loss: 0.00126, lr: 0.0005
+2025-12-18 01:28:29 Number of iterations: 40, loss: 0.00084, lr: 0.0005
+2025-12-18 01:31:36 Number of iterations: 50, loss: 0.00116, lr: 0.0005
+2025-12-18 01:34:44 Number of iterations: 60, loss: 0.00083, lr: 0.0005
+2025-12-18 01:37:52 Number of iterations: 70, loss: 0.00117, lr: 0.0005
+2025-12-18 01:41:01 Number of iterations: 80, loss: 0.00114, lr: 0.0005
+2025-12-18 01:44:08 Number of iterations: 90, loss: 0.00091, lr: 0.0005
+2025-12-18 01:46:04 Epoch 44/130 (lr=0.0005), train loss 0.00102
+2025-12-18 01:49:11 Number of iterations: 10, loss: 0.00114, lr: 0.0005
+2025-12-18 01:52:18 Number of iterations: 20, loss: 0.00089, lr: 0.0005
+2025-12-18 01:55:25 Number of iterations: 30, loss: 0.00109, lr: 0.0005
+2025-12-18 01:58:33 Number of iterations: 40, loss: 0.00104, lr: 0.0005
+2025-12-18 02:01:40 Number of iterations: 50, loss: 0.00101, lr: 0.0005
+2025-12-18 02:04:46 Number of iterations: 60, loss: 0.00071, lr: 0.0005
+2025-12-18 02:07:53 Number of iterations: 70, loss: 0.00080, lr: 0.0005
+2025-12-18 02:11:02 Number of iterations: 80, loss: 0.00084, lr: 0.0005
+2025-12-18 02:14:09 Number of iterations: 90, loss: 0.00118, lr: 0.0005
+2025-12-18 02:16:04 Epoch 45/130 (lr=0.0005), train loss 0.00100
+2025-12-18 02:19:12 Number of iterations: 10, loss: 0.00105, lr: 0.0005
+2025-12-18 02:22:20 Number of iterations: 20, loss: 0.00078, lr: 0.0005
+2025-12-18 02:25:30 Number of iterations: 30, loss: 0.00098, lr: 0.0005
+2025-12-18 02:28:39 Number of iterations: 40, loss: 0.00120, lr: 0.0005
+2025-12-18 02:31:47 Number of iterations: 50, loss: 0.00069, lr: 0.0005
+2025-12-18 02:34:55 Number of iterations: 60, loss: 0.00081, lr: 0.0005
+2025-12-18 02:38:02 Number of iterations: 70, loss: 0.00076, lr: 0.0005
+2025-12-18 02:41:09 Number of iterations: 80, loss: 0.00134, lr: 0.0005
+2025-12-18 02:44:17 Number of iterations: 90, loss: 0.00110, lr: 0.0005
+2025-12-18 02:46:12 Epoch 46/130 (lr=0.0005), train loss 0.00101
+2025-12-18 02:49:20 Number of iterations: 10, loss: 0.00102, lr: 0.0005
+2025-12-18 02:52:30 Number of iterations: 20, loss: 0.00095, lr: 0.0005
+2025-12-18 02:55:42 Number of iterations: 30, loss: 0.00095, lr: 0.0005
+2025-12-18 02:58:54 Number of iterations: 40, loss: 0.00108, lr: 0.0005
+2025-12-18 03:02:04 Number of iterations: 50, loss: 0.00093, lr: 0.0005
+2025-12-18 03:05:12 Number of iterations: 60, loss: 0.00094, lr: 0.0005
+2025-12-18 03:08:19 Number of iterations: 70, loss: 0.00095, lr: 0.0005
+2025-12-18 03:11:28 Number of iterations: 80, loss: 0.00069, lr: 0.0005
+2025-12-18 03:14:37 Number of iterations: 90, loss: 0.00091, lr: 0.0005
+2025-12-18 03:16:32 Epoch 47/130 (lr=0.0005), train loss 0.00094
+2025-12-18 03:19:41 Number of iterations: 10, loss: 0.00114, lr: 0.0005
+2025-12-18 03:22:51 Number of iterations: 20, loss: 0.00120, lr: 0.0005
+2025-12-18 03:26:04 Number of iterations: 30, loss: 0.00135, lr: 0.0005
+2025-12-18 03:29:17 Number of iterations: 40, loss: 0.00093, lr: 0.0005
+2025-12-18 03:32:32 Number of iterations: 50, loss: 0.00088, lr: 0.0005
+2025-12-18 03:35:48 Number of iterations: 60, loss: 0.00093, lr: 0.0005
+2025-12-18 03:39:13 Number of iterations: 70, loss: 0.00112, lr: 0.0005
+2025-12-18 03:42:32 Number of iterations: 80, loss: 0.00094, lr: 0.0005
+2025-12-18 03:45:42 Number of iterations: 90, loss: 0.00081, lr: 0.0005
+2025-12-18 03:47:39 Epoch 48/130 (lr=0.0005), train loss 0.00096
+2025-12-18 03:50:47 Number of iterations: 10, loss: 0.00119, lr: 0.0005
+2025-12-18 03:53:58 Number of iterations: 20, loss: 0.00079, lr: 0.0005
+2025-12-18 03:57:08 Number of iterations: 30, loss: 0.00103, lr: 0.0005
+2025-12-18 04:00:21 Number of iterations: 40, loss: 0.00091, lr: 0.0005
+2025-12-18 04:03:44 Number of iterations: 50, loss: 0.00095, lr: 0.0005
+2025-12-18 04:06:54 Number of iterations: 60, loss: 0.00086, lr: 0.0005
+2025-12-18 04:10:02 Number of iterations: 70, loss: 0.00077, lr: 0.0005
+2025-12-18 04:13:11 Number of iterations: 80, loss: 0.00130, lr: 0.0005
+2025-12-18 04:16:19 Number of iterations: 90, loss: 0.00062, lr: 0.0005
+2025-12-18 04:18:14 Epoch 49/130 (lr=0.0005), train loss 0.00094
+2025-12-18 04:21:21 Number of iterations: 10, loss: 0.00072, lr: 0.0005
+2025-12-18 04:24:29 Number of iterations: 20, loss: 0.00110, lr: 0.0005
+2025-12-18 04:27:38 Number of iterations: 30, loss: 0.00084, lr: 0.0005
+2025-12-18 04:30:45 Number of iterations: 40, loss: 0.00102, lr: 0.0005
+2025-12-18 04:33:52 Number of iterations: 50, loss: 0.00090, lr: 0.0005
+2025-12-18 04:36:59 Number of iterations: 60, loss: 0.00127, lr: 0.0005
+2025-12-18 04:40:07 Number of iterations: 70, loss: 0.00139, lr: 0.0005
+2025-12-18 04:43:15 Number of iterations: 80, loss: 0.00102, lr: 0.0005
+2025-12-18 04:46:23 Number of iterations: 90, loss: 0.00102, lr: 0.0005
+2025-12-18 04:48:18 Training for epoch 50 done, starting evaluation
+2025-12-18 04:49:07 Epoch 50/130 (lr=0.0005), train loss 0.00099, valid loss 0.00120
+2025-12-18 04:49:07 Model performance:
+2025-12-18 04:49:07   metrics/test.rmse:           2.72
+2025-12-18 04:49:07   metrics/test.rmse_pcutoff:   2.73
+2025-12-18 04:49:07   metrics/test.mAP:          100.00
+2025-12-18 04:49:07   metrics/test.mAR:          100.00
+2025-12-18 04:52:14 Number of iterations: 10, loss: 0.00106, lr: 0.0005
+2025-12-18 04:55:22 Number of iterations: 20, loss: 0.00124, lr: 0.0005
+2025-12-18 04:58:30 Number of iterations: 30, loss: 0.00089, lr: 0.0005
+2025-12-18 05:01:41 Number of iterations: 40, loss: 0.00088, lr: 0.0005
+2025-12-18 05:04:56 Number of iterations: 50, loss: 0.00064, lr: 0.0005
+2025-12-18 05:08:07 Number of iterations: 60, loss: 0.00064, lr: 0.0005
+2025-12-18 05:11:15 Number of iterations: 70, loss: 0.00105, lr: 0.0005
+2025-12-18 05:14:23 Number of iterations: 80, loss: 0.00109, lr: 0.0005
+2025-12-18 05:17:31 Number of iterations: 90, loss: 0.00097, lr: 0.0005
+2025-12-18 05:19:26 Epoch 51/130 (lr=0.0005), train loss 0.00095
+2025-12-18 05:22:34 Number of iterations: 10, loss: 0.00094, lr: 0.0005
+2025-12-18 05:25:45 Number of iterations: 20, loss: 0.00106, lr: 0.0005
+2025-12-18 05:28:54 Number of iterations: 30, loss: 0.00084, lr: 0.0005
+2025-12-18 05:32:02 Number of iterations: 40, loss: 0.00071, lr: 0.0005
+2025-12-18 05:35:10 Number of iterations: 50, loss: 0.00078, lr: 0.0005
+2025-12-18 05:38:17 Number of iterations: 60, loss: 0.00100, lr: 0.0005
+2025-12-18 05:41:26 Number of iterations: 70, loss: 0.00081, lr: 0.0005
+2025-12-18 05:44:35 Number of iterations: 80, loss: 0.00083, lr: 0.0005
+2025-12-18 05:47:43 Number of iterations: 90, loss: 0.00081, lr: 0.0005
+2025-12-18 05:49:39 Epoch 52/130 (lr=0.0005), train loss 0.00093
+2025-12-18 05:52:47 Number of iterations: 10, loss: 0.00104, lr: 0.0005
+2025-12-18 05:55:55 Number of iterations: 20, loss: 0.00105, lr: 0.0005
+2025-12-18 05:59:04 Number of iterations: 30, loss: 0.00119, lr: 0.0005
+2025-12-18 06:02:13 Number of iterations: 40, loss: 0.00070, lr: 0.0005
+2025-12-18 06:05:21 Number of iterations: 50, loss: 0.00073, lr: 0.0005
+2025-12-18 06:08:29 Number of iterations: 60, loss: 0.00111, lr: 0.0005
+2025-12-18 06:11:37 Number of iterations: 70, loss: 0.00089, lr: 0.0005
+2025-12-18 06:14:46 Number of iterations: 80, loss: 0.00089, lr: 0.0005
+2025-12-18 06:17:55 Number of iterations: 90, loss: 0.00105, lr: 0.0005
+2025-12-18 06:19:51 Epoch 53/130 (lr=0.0005), train loss 0.00092
+2025-12-18 06:22:59 Number of iterations: 10, loss: 0.00091, lr: 0.0005
+2025-12-18 06:26:06 Number of iterations: 20, loss: 0.00122, lr: 0.0005
+2025-12-18 06:29:17 Number of iterations: 30, loss: 0.00103, lr: 0.0005
+2025-12-18 06:32:23 Number of iterations: 40, loss: 0.00090, lr: 0.0005
+2025-12-18 06:35:31 Number of iterations: 50, loss: 0.00094, lr: 0.0005
+2025-12-18 06:38:37 Number of iterations: 60, loss: 0.00101, lr: 0.0005
+2025-12-18 06:41:47 Number of iterations: 70, loss: 0.00116, lr: 0.0005
+2025-12-18 06:44:55 Number of iterations: 80, loss: 0.00102, lr: 0.0005
+2025-12-18 06:48:02 Number of iterations: 90, loss: 0.00113, lr: 0.0005
+2025-12-18 06:49:57 Epoch 54/130 (lr=0.0005), train loss 0.00091
+2025-12-18 06:53:06 Number of iterations: 10, loss: 0.00063, lr: 0.0005
+2025-12-18 06:56:16 Number of iterations: 20, loss: 0.00085, lr: 0.0005
+2025-12-18 06:59:25 Number of iterations: 30, loss: 0.00065, lr: 0.0005
+2025-12-18 07:04:06 Use selected bodyparts only: ['Nose', 'Left_ear', 'Right_ear', 'Centroid', 'Left_lateral', 'Right_lateral', 'Tail_base', 'Tail_end']
+2025-12-18 07:04:07 Selected bodyparts:
+	['Nose']
+2025-12-18 07:04:08 Selected bodyparts:
+	['Nose', 'Tail_base']
+2025-12-18 07:04:09 Selected bodyparts:
+	['Nose']
+2025-12-18 07:04:09 Selected bodyparts:
+	['Nose', 'Tail_base']
+2025-12-18 07:04:09 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral']
+2025-12-18 07:04:10 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral', 'Left_lateral']
+2025-12-18 07:04:10 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral', 'Left_lateral', 'Centroid']
+2025-12-18 07:04:11 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral', 'Left_lateral', 'Centroid', 'Right_ear']
+2025-12-18 07:04:11 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral', 'Left_lateral', 'Centroid', 'Right_ear', 'Left_ear']
+2025-12-18 07:20:04 Evaluation results for DLC_Resnet50_GPEDec9shuffle3_snapshot_040-results.csv (pcutoff: 0):
+2025-12-18 07:20:04 train rmse             2.08
+train rmse_pcutoff     2.08
+train mAP             98.89
+train mAR             99.75
+test rmse              2.70
+test rmse_pcutoff      2.70
+test mAP              98.96
+test mAR              99.27
+Name: (0.95, 3, 40, -1, 0), dtype: float64
+2025-12-18 07:24:09 Save results as CSV ENABLED
+2025-12-18 07:24:22 All video files have been cleared.
+2025-12-18 07:24:22 Cleared selected videos
+2025-12-18 07:24:22 All video files have been cleared.
+2025-12-18 07:24:22 Cleared selected videos
+2025-12-18 07:24:22 All video files have been cleared.
+2025-12-18 07:24:22 Cleared selected videos
+2025-12-18 07:24:22 All video files have been cleared.
+2025-12-18 07:24:22 Cleared selected videos
+2025-12-18 07:24:22 All video files have been cleared.
+2025-12-18 07:24:22 Cleared selected videos
+2025-12-18 07:24:22 All video files have been cleared.
+2025-12-18 07:24:22 Cleared selected videos
+2025-12-18 07:24:22 All video files have been cleared.
+2025-12-18 07:24:22 Cleared selected videos
+2025-12-18 07:24:22 All video files have been cleared.
+2025-12-18 07:24:22 Cleared selected videos
+2025-12-18 07:24:22 Video type set to avi
+2025-12-18 07:24:22 Video type set to avi
+2025-12-18 07:24:22 Video type set to avi
+2025-12-18 07:24:22 Video type set to avi
+2025-12-18 07:24:22 Video type set to avi
+2025-12-18 07:24:22 Video type set to avi
+2025-12-18 07:24:22 Video type set to avi
+2025-12-18 07:24:22 Video type set to avi
+2025-12-18 07:24:30 Videos added to analyze:
+{'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240920_ic240713i-240920-120952_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240920_ic240713k-240920-131433_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240918_ic240724f-240918-162625_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240918_ic240724e-240918-152421_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240918_ic240724d-240918-173603_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240920_ic240724c-240920-142226_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240920_ic240724e-240920-105546_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-241121_ic240929a-241121-123016_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-241121_ic240929b-241121-133840_Vid1.avi'}
+Current video files:
+{'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240920_ic240713i-240920-120952_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240920_ic240713k-240920-131433_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240918_ic240724f-240918-162625_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240918_ic240724e-240918-152421_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240918_ic240724d-240918-173603_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240920_ic240724c-240920-142226_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240920_ic240724e-240920-105546_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-241121_ic240929a-241121-123016_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-241121_ic240929b-241121-133840_Vid1.avi'}
+2025-12-18 07:24:36 Dynamic bodypart cropping ENABLED.
+2025-12-18 07:24:44 Analyzing videos with C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\dlc-models-pytorch\iteration-0\GPEDec9-trainset95shuffle3\train\snapshot-best-040.pt
+2025-12-18 07:24:45 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240920_ic240713i-240920-120952_Vid1.avi
+2025-12-18 07:24:45 Video metadata: 
+  Overall # of frames:    36131
+  Duration of video [s]:  3613.10
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-18 07:24:45 Running pose prediction with batch size 1
+2025-12-18 07:50:09 Exiting...
+2025-12-18 07:50:11 
+2025-12-18 13:00:16 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240920_ic240713i-240920-120952_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240920_ic240713i-240920-120952_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-18 13:00:17 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240920_ic240713k-240920-131433_Vid1.avi
+2025-12-18 13:00:17 Video metadata: 
+  Overall # of frames:    37532
+  Duration of video [s]:  3753.20
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-18 13:00:17 Running pose prediction with batch size 1
+2025-12-18 17:59:04 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240920_ic240713k-240920-131433_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240920_ic240713k-240920-131433_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-18 17:59:05 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240918_ic240724f-240918-162625_Vid1.avi
+2025-12-18 17:59:05 Video metadata: 
+  Overall # of frames:    35333
+  Duration of video [s]:  3533.30
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-18 17:59:05 Running pose prediction with batch size 1
+2025-12-19 09:37:56 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240918_ic240724f-240918-162625_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240918_ic240724f-240918-162625_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-19 09:37:57 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240918_ic240724e-240918-152421_Vid1.avi
+2025-12-19 09:37:57 Video metadata: 
+  Overall # of frames:    34340
+  Duration of video [s]:  3434.00
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-19 09:37:57 Running pose prediction with batch size 1
+2025-12-19 14:33:38 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240918_ic240724e-240918-152421_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240918_ic240724e-240918-152421_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-19 14:33:39 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240918_ic240724d-240918-173603_Vid1.avi
+2025-12-19 14:33:39 Video metadata: 
+  Overall # of frames:    35575
+  Duration of video [s]:  3557.50
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-19 14:33:39 Running pose prediction with batch size 1
+2025-12-19 19:30:05 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240918_ic240724d-240918-173603_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240918_ic240724d-240918-173603_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-19 19:30:06 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240920_ic240724c-240920-142226_Vid1.avi
+2025-12-19 19:30:06 Video metadata: 
+  Overall # of frames:    43362
+  Duration of video [s]:  4336.20
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-19 19:30:06 Running pose prediction with batch size 1
+2025-12-20 01:12:17 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240920_ic240724c-240920-142226_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240920_ic240724c-240920-142226_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-20 01:12:19 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240920_ic240724e-240920-105546_Vid1.avi
+2025-12-20 01:12:19 Video metadata: 
+  Overall # of frames:    34772
+  Duration of video [s]:  3477.20
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-20 01:12:19 Running pose prediction with batch size 1
+2025-12-20 04:16:51 Plot trajectories ENABLED.
+2025-12-20 04:16:52 Plot trajectories DISABLED.
+2025-12-20 05:47:08 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240920_ic240724e-240920-105546_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240920_ic240724e-240920-105546_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-20 05:47:09 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-241121_ic240929a-241121-123016_Vid1.avi
+2025-12-20 05:47:09 Video metadata: 
+  Overall # of frames:    38455
+  Duration of video [s]:  3845.50
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-20 05:47:09 Running pose prediction with batch size 1
+2025-12-20 11:08:11 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-241121_ic240929a-241121-123016_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-241121_ic240929a-241121-123016_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-20 11:08:13 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-241121_ic240929b-241121-133840_Vid1.avi
+2025-12-20 11:08:13 Video metadata: 
+  Overall # of frames:    36870
+  Duration of video [s]:  3687.00
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-20 11:08:13 Running pose prediction with batch size 1
+2025-12-20 19:23:53 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-241121_ic240929b-241121-133840_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-241121_ic240929b-241121-133840_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-20 19:23:54 The videos are analyzed. Now your research can truly start!
+You can create labeled videos with 'create_labeled_video'.
+If the tracking is not satisfactory for some videos, consider expanding the training set. You can use the function 'extract_outlier_frames' to extract a few representative outlier frames.
+
+2025-12-20 19:35:47 All video files have been cleared.
+2025-12-20 19:35:47 Cleared selected videos
+2025-12-20 19:36:06 Videos added to analyze:
+{'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-241121_ic240929d-241121-155001_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240920_ic240713j-240920-153823_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-241121_ic240929c-241121-144407_Vid1.avi'}
+Current video files:
+{'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-241121_ic240929d-241121-155001_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240920_ic240713j-240920-153823_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-241121_ic240929c-241121-144407_Vid1.avi'}
+2025-12-20 19:36:16 All video files have been cleared.
+2025-12-20 19:36:16 Cleared selected videos
+2025-12-20 19:36:23 Videos added to analyze:
+{'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-241121_ic240929d-241121-155001_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240920_ic240713j-240920-153823_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-241121_ic240929c-241121-144407_Vid1.avi'}
+Current video files:
+{'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-241121_ic240929d-241121-155001_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-240920_ic240713j-240920-153823_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\FiberphotometryTest-241121_ic240929c-241121-144407_Vid1.avi'}
+2025-12-20 19:36:27 Analyzing videos with C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\dlc-models-pytorch\iteration-0\GPEDec9-trainset95shuffle3\train\snapshot-best-040.pt
+2025-12-20 19:36:29 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-241121_ic240929d-241121-155001_Vid1.avi
+2025-12-20 19:36:29 Video metadata: 
+  Overall # of frames:    36428
+  Duration of video [s]:  3642.80
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-20 19:36:29 Running pose prediction with batch size 1
+2025-12-21 00:43:44 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-241121_ic240929d-241121-155001_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-241121_ic240929d-241121-155001_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-21 00:43:45 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240920_ic240713j-240920-153823_Vid1.avi
+2025-12-21 00:43:45 Video metadata: 
+  Overall # of frames:    36060
+  Duration of video [s]:  3606.00
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-21 00:43:45 Running pose prediction with batch size 1
+2025-12-21 05:22:17 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240920_ic240713j-240920-153823_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-240920_ic240713j-240920-153823_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-21 05:22:18 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-241121_ic240929c-241121-144407_Vid1.avi
+2025-12-21 05:22:18 Video metadata: 
+  Overall # of frames:    37060
+  Duration of video [s]:  3706.00
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-21 05:22:18 Running pose prediction with batch size 1
+2025-12-21 10:38:17 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-241121_ic240929c-241121-144407_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\FiberphotometryTest-241121_ic240929c-241121-144407_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-21 10:38:18 The videos are analyzed. Now your research can truly start!
+You can create labeled videos with 'create_labeled_video'.
+If the tracking is not satisfactory for some videos, consider expanding the training set. You can use the function 'extract_outlier_frames' to extract a few representative outlier frames.
+
+2025-12-21 11:05:36 All video files have been cleared.
+2025-12-21 11:05:36 Cleared selected videos
+2025-12-21 11:05:43 Videos added to analyze:
+{'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240414_ic240302d-240414-094716_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240328_ic240213a-240328-100230_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240527_ic240410c-240527-134356_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240111_ic231126e-240111-101333_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240528_ic240410f-240528-103047_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240527_ic240410d-240527-143150_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240328_ic240213c-240328-122855_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240528_ic240410g-240528-111429_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240528_ic240410h-240528-115318_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240111_ic231126d-240111-120753_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240527_ic240410b-240527-131317_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240328_ic240213d-240328-130544_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240527_ic240410a-240527-123624_Vid1.avi'}
+Current video files:
+{'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240414_ic240302d-240414-094716_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240328_ic240213a-240328-100230_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240527_ic240410c-240527-134356_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240111_ic231126e-240111-101333_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240528_ic240410f-240528-103047_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240527_ic240410d-240527-143150_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240328_ic240213c-240328-122855_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240528_ic240410g-240528-111429_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240528_ic240410h-240528-115318_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240111_ic231126d-240111-120753_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240527_ic240410b-240527-131317_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240328_ic240213d-240328-130544_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240527_ic240410a-240527-123624_Vid1.avi'}
+2025-12-21 11:05:45 Analyzing videos with C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\dlc-models-pytorch\iteration-0\GPEDec9-trainset95shuffle3\train\snapshot-best-040.pt
+2025-12-21 11:05:46 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240414_ic240302d-240414-094716_Vid1.avi
+2025-12-21 11:05:46 Video metadata: 
+  Overall # of frames:    16829
+  Duration of video [s]:  1682.90
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-21 11:05:46 Running pose prediction with batch size 1
+2025-12-21 13:27:59 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240414_ic240302d-240414-094716_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240414_ic240302d-240414-094716_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-21 13:28:00 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240328_ic240213a-240328-100230_Vid1.avi
+2025-12-21 13:28:00 Video metadata: 
+  Overall # of frames:    15274
+  Duration of video [s]:  1527.40
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-21 13:28:00 Running pose prediction with batch size 1
+2025-12-21 15:35:38 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240328_ic240213a-240328-100230_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240328_ic240213a-240328-100230_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-21 15:35:38 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410c-240527-134356_Vid1.avi
+2025-12-21 15:35:38 Video metadata: 
+  Overall # of frames:    15939
+  Duration of video [s]:  1593.90
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-21 15:35:38 Running pose prediction with batch size 1
+2025-12-21 17:36:21 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410c-240527-134356_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410c-240527-134356_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-21 17:36:22 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240111_ic231126e-240111-101333_Vid1.avi
+2025-12-21 17:36:22 Video metadata: 
+  Overall # of frames:    15173
+  Duration of video [s]:  1517.30
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-21 17:36:22 Running pose prediction with batch size 1
+2025-12-21 19:44:10 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240111_ic231126e-240111-101333_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240111_ic231126e-240111-101333_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-21 19:44:10 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240410f-240528-103047_Vid1.avi
+2025-12-21 19:44:10 Video metadata: 
+  Overall # of frames:    15366
+  Duration of video [s]:  1536.60
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-21 19:44:10 Running pose prediction with batch size 1
+2025-12-21 22:01:04 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240410f-240528-103047_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240410f-240528-103047_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-21 22:01:05 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410d-240527-143150_Vid1.avi
+2025-12-21 22:01:05 Video metadata: 
+  Overall # of frames:    15479
+  Duration of video [s]:  1547.90
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-21 22:01:05 Running pose prediction with batch size 1
+2025-12-22 00:13:52 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410d-240527-143150_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410d-240527-143150_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-22 00:13:52 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240328_ic240213c-240328-122855_Vid1.avi
+2025-12-22 00:13:52 Video metadata: 
+  Overall # of frames:    16279
+  Duration of video [s]:  1627.90
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-22 00:13:52 Running pose prediction with batch size 1
+2025-12-22 02:39:09 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240328_ic240213c-240328-122855_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240328_ic240213c-240328-122855_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-22 02:39:10 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240410g-240528-111429_Vid1.avi
+2025-12-22 02:39:10 Video metadata: 
+  Overall # of frames:    16711
+  Duration of video [s]:  1671.10
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-22 02:39:10 Running pose prediction with batch size 1
+2025-12-22 05:07:18 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240410g-240528-111429_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240410g-240528-111429_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-22 05:07:18 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240410h-240528-115318_Vid1.avi
+2025-12-22 05:07:18 Video metadata: 
+  Overall # of frames:    15777
+  Duration of video [s]:  1577.70
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-22 05:07:18 Running pose prediction with batch size 1
+2025-12-22 07:36:25 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240410h-240528-115318_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240410h-240528-115318_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-22 07:36:25 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240111_ic231126d-240111-120753_Vid1.avi
+2025-12-22 07:36:25 Video metadata: 
+  Overall # of frames:    15038
+  Duration of video [s]:  1503.80
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-22 07:36:25 Running pose prediction with batch size 1
+2025-12-22 09:28:41 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240111_ic231126d-240111-120753_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240111_ic231126d-240111-120753_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-22 09:28:42 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410b-240527-131317_Vid1.avi
+2025-12-22 09:28:42 Video metadata: 
+  Overall # of frames:    15395
+  Duration of video [s]:  1539.50
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-22 09:28:42 Running pose prediction with batch size 1
+2025-12-22 11:45:41 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410b-240527-131317_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410b-240527-131317_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-22 11:45:42 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240328_ic240213d-240328-130544_Vid1.avi
+2025-12-22 11:45:42 Video metadata: 
+  Overall # of frames:    15484
+  Duration of video [s]:  1548.40
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-22 11:45:42 Running pose prediction with batch size 1
+2025-12-22 13:53:11 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240328_ic240213d-240328-130544_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240328_ic240213d-240328-130544_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-22 13:53:12 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410a-240527-123624_Vid1.avi
+2025-12-22 13:53:12 Video metadata: 
+  Overall # of frames:    16071
+  Duration of video [s]:  1607.10
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-22 13:53:12 Running pose prediction with batch size 1
+2025-12-22 16:15:27 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410a-240527-123624_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410a-240527-123624_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-22 16:15:27 The videos are analyzed. Now your research can truly start!
+You can create labeled videos with 'create_labeled_video'.
+If the tracking is not satisfactory for some videos, consider expanding the training set. You can use the function 'extract_outlier_frames' to extract a few representative outlier frames.
+
+2025-12-22 19:26:11 Draw skeleton ENABLED
+2025-12-22 19:26:11 Plot all bodyparts DISABLED.
+2025-12-22 19:26:12 Selected bodyparts:
+	['Nose']
+2025-12-22 19:26:13 Selected bodyparts:
+	['Nose', 'Tail_base']
+2025-12-22 19:26:14 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral']
+2025-12-22 19:26:14 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral', 'Left_lateral']
+2025-12-22 19:26:15 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral', 'Left_lateral', 'Centroid']
+2025-12-22 19:26:15 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral', 'Left_lateral']
+2025-12-22 19:26:15 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral', 'Left_lateral', 'Left_ear']
+2025-12-22 19:26:16 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral', 'Left_lateral', 'Left_ear', 'Right_ear']
+2025-12-22 19:26:16 Selected bodyparts:
+	['Nose', 'Tail_base', 'Right_lateral', 'Left_lateral', 'Left_ear', 'Right_ear', 'Centroid']
+2025-12-22 19:26:17 Use filtered data ENABLED
+2025-12-22 19:26:24 Selected bodyparts for plotting:
+	['Nose', 'Tail_base', 'Right_lateral', 'Left_lateral', 'Left_ear', 'Right_ear', 'Centroid']
+2025-12-22 19:44:33 Starting to process video: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240414_ic240302d-240414-094716_Vid1.avi
+2025-12-22 19:44:33 Loading C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240414_ic240302d-240414-094716_Vid1.avi and data.
+2025-12-22 19:44:33 Duration of video [s]: 1682.9, recorded with 10.0 fps!
+2025-12-22 19:44:33 Overall # of frames: 16829 with cropped frame dimensions: 640 480
+2025-12-22 19:44:33 Generating frames and creating video.
+2025-12-22 19:44:33 Starting to process video: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240328_ic240213a-240328-100230_Vid1.avi
+2025-12-22 19:44:33 Loading C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240328_ic240213a-240328-100230_Vid1.avi and data.
+2025-12-22 19:44:33 Duration of video [s]: 1527.4, recorded with 10.0 fps!
+2025-12-22 19:44:33 Overall # of frames: 15274 with cropped frame dimensions: 640 480
+2025-12-22 19:44:33 Generating frames and creating video.
+2025-12-22 19:44:33 Starting to process video: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410c-240527-134356_Vid1.avi
+2025-12-22 19:44:33 Loading C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410c-240527-134356_Vid1.avi and data.
+2025-12-22 19:44:33 Duration of video [s]: 1593.9, recorded with 10.0 fps!
+2025-12-22 19:44:33 Overall # of frames: 15939 with cropped frame dimensions: 640 480
+2025-12-22 19:44:33 Generating frames and creating video.
+2025-12-22 19:44:33 Starting to process video: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240111_ic231126e-240111-101333_Vid1.avi
+2025-12-22 19:44:33 Loading C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240111_ic231126e-240111-101333_Vid1.avi and data.
+2025-12-22 19:44:33 Duration of video [s]: 1517.3, recorded with 10.0 fps!
+2025-12-22 19:44:33 Overall # of frames: 15173 with cropped frame dimensions: 640 480
+2025-12-22 19:44:33 Generating frames and creating video.
+2025-12-22 19:44:33 Starting to process video: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240410f-240528-103047_Vid1.avi
+2025-12-22 19:44:33 Loading C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240410f-240528-103047_Vid1.avi and data.
+2025-12-22 19:44:33 Duration of video [s]: 1536.6, recorded with 10.0 fps!
+2025-12-22 19:44:33 Overall # of frames: 15366 with cropped frame dimensions: 640 480
+2025-12-22 19:44:33 Generating frames and creating video.
+2025-12-22 19:44:33 Starting to process video: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410d-240527-143150_Vid1.avi
+2025-12-22 19:44:33 Loading C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410d-240527-143150_Vid1.avi and data.
+2025-12-22 19:44:33 Duration of video [s]: 1547.9, recorded with 10.0 fps!
+2025-12-22 19:44:33 Overall # of frames: 15479 with cropped frame dimensions: 640 480
+2025-12-22 19:44:33 Generating frames and creating video.
+2025-12-22 19:44:33 Starting to process video: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240328_ic240213c-240328-122855_Vid1.avi
+2025-12-22 19:44:33 Loading C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240328_ic240213c-240328-122855_Vid1.avi and data.
+2025-12-22 19:44:33 Duration of video [s]: 1627.9, recorded with 10.0 fps!
+2025-12-22 19:44:33 Overall # of frames: 16279 with cropped frame dimensions: 640 480
+2025-12-22 19:44:33 Generating frames and creating video.
+2025-12-22 19:44:33 Starting to process video: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240410g-240528-111429_Vid1.avi
+2025-12-22 19:44:33 Loading C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240410g-240528-111429_Vid1.avi and data.
+2025-12-22 19:44:33 Duration of video [s]: 1671.1, recorded with 10.0 fps!
+2025-12-22 19:44:33 Overall # of frames: 16711 with cropped frame dimensions: 640 480
+2025-12-22 19:44:33 Generating frames and creating video.
+2025-12-22 19:44:33 Starting to process video: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240410h-240528-115318_Vid1.avi
+2025-12-22 19:44:33 Loading C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240410h-240528-115318_Vid1.avi and data.
+2025-12-22 19:44:33 Duration of video [s]: 1577.7, recorded with 10.0 fps!
+2025-12-22 19:44:33 Overall # of frames: 15777 with cropped frame dimensions: 640 480
+2025-12-22 19:44:33 Generating frames and creating video.
+2025-12-22 19:44:33 Starting to process video: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240111_ic231126d-240111-120753_Vid1.avi
+2025-12-22 19:44:33 Loading C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240111_ic231126d-240111-120753_Vid1.avi and data.
+2025-12-22 19:44:33 Duration of video [s]: 1503.8, recorded with 10.0 fps!
+2025-12-22 19:44:33 Overall # of frames: 15038 with cropped frame dimensions: 640 480
+2025-12-22 19:44:33 Generating frames and creating video.
+2025-12-22 19:44:33 Starting to process video: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410b-240527-131317_Vid1.avi
+2025-12-22 19:44:33 Loading C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410b-240527-131317_Vid1.avi and data.
+2025-12-22 19:44:33 Duration of video [s]: 1539.5, recorded with 10.0 fps!
+2025-12-22 19:44:33 Overall # of frames: 15395 with cropped frame dimensions: 640 480
+2025-12-22 19:44:33 Generating frames and creating video.
+2025-12-22 19:44:33 Starting to process video: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240328_ic240213d-240328-130544_Vid1.avi
+2025-12-22 19:44:33 Loading C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240328_ic240213d-240328-130544_Vid1.avi and data.
+2025-12-22 19:44:33 Duration of video [s]: 1548.4, recorded with 10.0 fps!
+2025-12-22 19:44:33 Overall # of frames: 15484 with cropped frame dimensions: 640 480
+2025-12-22 19:44:33 Generating frames and creating video.
+2025-12-22 19:44:33 Starting to process video: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410a-240527-123624_Vid1.avi
+2025-12-22 19:44:33 Loading C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240527_ic240410a-240527-123624_Vid1.avi and data.
+2025-12-22 19:44:33 Duration of video [s]: 1607.1, recorded with 10.0 fps!
+2025-12-22 19:44:33 Overall # of frames: 16071 with cropped frame dimensions: 640 480
+2025-12-22 19:44:33 Generating frames and creating video.
+2025-12-22 19:44:33 Labeled videos created.
+2025-12-22 21:54:51 All video files have been cleared.
+2025-12-22 21:54:51 Cleared selected videos
+2025-12-22 21:55:37 Videos added to analyze:
+{'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240528_ic240412a-240528-084718_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240530_ic240412c-240530-103130_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240530_ic240416c-240530-122046_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240530_ic240416f-240530-140420_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240530_ic240416b-240530-114235_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240530_ic240416a-240530-110850_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240530_ic240416e-240530-132949_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240616_ic240501a-240616-104942_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240616_ic240501c-240616-120316_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240528_ic240412b-240528-092357_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240616_ic240501b-240616-112840_Vid1.avi'}
+Current video files:
+{'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240528_ic240412a-240528-084718_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240530_ic240412c-240530-103130_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240530_ic240416c-240530-122046_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240530_ic240416f-240530-140420_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240530_ic240416b-240530-114235_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240530_ic240416a-240530-110850_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240530_ic240416e-240530-132949_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240616_ic240501a-240616-104942_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240616_ic240501c-240616-120316_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240528_ic240412b-240528-092357_Vid1.avi', 'C:\\Users\\isaac.chang\\Desktop\\GPE-Isaac-2025-12-09\\videos2\\IC_OptoOnly_Sustained-240616_ic240501b-240616-112840_Vid1.avi'}
+2025-12-22 21:55:44 Analyzing videos with C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\dlc-models-pytorch\iteration-0\GPEDec9-trainset95shuffle3\train\snapshot-best-040.pt
+2025-12-22 21:55:45 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240412a-240528-084718_Vid1.avi
+2025-12-22 21:55:45 Video metadata: 
+  Overall # of frames:    16070
+  Duration of video [s]:  1607.00
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-22 21:55:45 Running pose prediction with batch size 1
+2025-12-23 00:08:19 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240412a-240528-084718_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240412a-240528-084718_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-23 00:08:19 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240412c-240530-103130_Vid1.avi
+2025-12-23 00:08:19 Video metadata: 
+  Overall # of frames:    16571
+  Duration of video [s]:  1657.10
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-23 00:08:19 Running pose prediction with batch size 1
+2025-12-23 02:26:55 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240412c-240530-103130_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240412c-240530-103130_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-23 02:26:56 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240416c-240530-122046_Vid1.avi
+2025-12-23 02:26:56 Video metadata: 
+  Overall # of frames:    15358
+  Duration of video [s]:  1535.80
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-23 02:26:56 Running pose prediction with batch size 1
+2025-12-23 04:47:57 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240416c-240530-122046_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240416c-240530-122046_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-23 04:47:58 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240416f-240530-140420_Vid1.avi
+2025-12-23 04:47:58 Video metadata: 
+  Overall # of frames:    15099
+  Duration of video [s]:  1509.90
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-23 04:47:58 Running pose prediction with batch size 1
+2025-12-23 06:57:27 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240416f-240530-140420_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240416f-240530-140420_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-23 06:57:28 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240416b-240530-114235_Vid1.avi
+2025-12-23 06:57:28 Video metadata: 
+  Overall # of frames:    15860
+  Duration of video [s]:  1586.00
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-23 06:57:28 Running pose prediction with batch size 1
+2025-12-23 09:27:41 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240416b-240530-114235_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240416b-240530-114235_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-23 09:27:41 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240416a-240530-110850_Vid1.avi
+2025-12-23 09:27:41 Video metadata: 
+  Overall # of frames:    16520
+  Duration of video [s]:  1652.00
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-23 09:27:41 Running pose prediction with batch size 1
+2025-12-23 11:45:51 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240416a-240530-110850_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240416a-240530-110850_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-23 11:45:51 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240416e-240530-132949_Vid1.avi
+2025-12-23 11:45:51 Video metadata: 
+  Overall # of frames:    16716
+  Duration of video [s]:  1671.60
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-23 11:45:51 Running pose prediction with batch size 1
+2025-12-23 14:08:03 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240416e-240530-132949_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240530_ic240416e-240530-132949_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-23 14:08:04 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240616_ic240501a-240616-104942_Vid1.avi
+2025-12-23 14:08:04 Video metadata: 
+  Overall # of frames:    16883
+  Duration of video [s]:  1688.30
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-23 14:08:04 Running pose prediction with batch size 1
+2025-12-23 16:33:26 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240616_ic240501a-240616-104942_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240616_ic240501a-240616-104942_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-23 16:33:27 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240616_ic240501c-240616-120316_Vid1.avi
+2025-12-23 16:33:27 Video metadata: 
+  Overall # of frames:    16988
+  Duration of video [s]:  1698.80
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-23 16:33:27 Running pose prediction with batch size 1
+2025-12-23 19:02:10 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240616_ic240501c-240616-120316_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240616_ic240501c-240616-120316_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-23 19:02:10 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240412b-240528-092357_Vid1.avi
+2025-12-23 19:02:10 Video metadata: 
+  Overall # of frames:    16509
+  Duration of video [s]:  1650.90
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-23 19:02:10 Running pose prediction with batch size 1
+2025-12-23 21:19:48 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240412b-240528-092357_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240528_ic240412b-240528-092357_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-23 21:19:48 Starting to analyze C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240616_ic240501b-240616-112840_Vid1.avi
+2025-12-23 21:19:48 Video metadata: 
+  Overall # of frames:    15859
+  Duration of video [s]:  1585.90
+  fps:                    10.0
+  resolution:             w=640, h=480
+
+2025-12-23 21:19:48 Running pose prediction with batch size 1
+2025-12-23 23:29:59 Saving results in C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240616_ic240501b-240616-112840_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040.h5 and C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos2\IC_OptoOnly_Sustained-240616_ic240501b-240616-112840_Vid1DLC_Resnet50_GPEDec9shuffle3_snapshot_040_full.pickle
+2025-12-23 23:29:59 The videos are analyzed. Now your research can truly start!
+You can create labeled videos with 'create_labeled_video'.
+If the tracking is not satisfactory for some videos, consider expanding the training set. You can use the function 'extract_outlier_frames' to extract a few representative outlier frames.
+
+2025-12-24 05:45:06 Exiting...

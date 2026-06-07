@@ -1,0 +1,24 @@
+dataset: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09
+dataset_type: multi-animal-imgaug
+num_joints: 8
+all_joints:
+- - 0
+- - 1
+- - 2
+- - 3
+- - 4
+- - 5
+- - 6
+- - 7
+all_joints_names:
+- Nose
+- Left_ear
+- Right_ear
+- Centroid
+- Left_lateral
+- Right_lateral
+- Tail_base
+- Tail_end
+net_type: hrnet_w32
+global_scale: 1
+scoremap_dir: test

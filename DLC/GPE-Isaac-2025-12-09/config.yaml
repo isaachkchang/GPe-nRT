@@ -1,0 +1,137 @@
+# Project definitions (do not edit)
+Task: GPE
+scorer: Isaac
+date: Dec9
+multianimalproject: false
+identity:
+
+
+# Project path (change when moving around)
+project_path: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09
+
+
+# Default DeepLabCut engine to use for shuffle creation (either pytorch or tensorflow)
+engine: pytorch
+
+
+# Annotation data set configuration (and individual video cropping parameters)
+video_sets:
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\FiberphotometryTest-240918_ic240724d-240918-173603_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\FiberphotometryTest-240920_ic240713j-240920-153823_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\FiberphotometryTest-241121_ic240929b-241121-133840_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_20Hz-230923_ic230810c-230923-180022_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_20Hz-230923_ic230810i-230923-153630_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_20Hz-231120_ic231005b-231120-172413_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_20Hz-231122_ic231007i-231122-114053_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_20Hz-231201_ic231024c-231201-112625_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_20Hz-240112_ic231126c-240112-104244_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_20Hz-240526_ic240410g-240526-134956_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_20Hz-241009_ic240827e-241009-132148_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_50Hz-240308_ic240125c-240308-124251_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_Sustained-231125_ic231005d-231125-160733_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_Sustained-240302_ic240108f-240302-112250_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_Sustained-240625_ic240514f-240625-113444_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_Sustained-240827_ic240714f-240827-131142_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_Sustained-240908_ic240724b-240908-112756_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_Sustained-240926_ic240815c-240926-141754_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_Sustained-250101_ic241118d-250101-160133_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\IC_OptoOnly_Sustained-250102_ic241118f-250102-144523_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\FiberphotometryTest-240918_ic240724f-240918-162625_Vid1.avi:
+    crop: 0, 640, 0, 480
+  C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\videos\FiberphotometryTest-240918_ic240724e-240918-152421_Vid1.avi:
+    crop: 0, 640, 0, 480
+bodyparts:
+- Nose
+- Left_ear
+- Right_ear
+- Centroid
+- Left_lateral
+- Right_lateral
+- Tail_base
+- Tail_end
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+start: 0
+stop: 1
+numframes2pick: 25
+
+
+# Plotting configuration
+skeleton:
+- - Nose
+  - Left_ear
+- - Left_ear
+  - Right_ear
+- - Left_lateral
+  - Tail_base
+- - Left_ear
+  - Left_lateral
+- - Tail_base
+  - Tail_end
+- - Nose
+  - Right_ear
+- - Right_lateral
+  - Tail_base
+- - Right_ear
+  - Right_lateral
+skeleton_color: white
+pcutoff: 0
+dotsize: 3
+alphavalue: 0.7
+colormap: rainbow
+
+
+# Training,Evaluation and Analysis configuration
+TrainingFraction:
+- 0.95
+iteration: 0
+default_net_type: resnet_50
+default_augmenter: default
+snapshotindex: -1
+detector_snapshotindex: -1
+batch_size: 1
+detector_batch_size: 1
+
+
+# Cropping Parameters (for analysis and outlier frame detection)
+cropping: false
+#if cropping is true for analysis, then set the values here:
+x1: 0
+x2: 640
+y1: 277
+y2: 624
+
+
+# Refinement configuration (parameters from annotation dataset configuration also relevant in this stage)
+corner2move2:
+- 50
+- 50
+move2corner: true
+
+
+# Conversion tables to fine-tune SuperAnimal weights
+SuperAnimalConversionTables:

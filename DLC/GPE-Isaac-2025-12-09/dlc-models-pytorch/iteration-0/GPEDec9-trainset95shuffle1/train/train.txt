@@ -1,0 +1,270 @@
+2025-12-10 08:50:37 Training with configuration:
+2025-12-10 08:50:37 data:
+2025-12-10 08:50:37   bbox_margin: 20
+2025-12-10 08:50:37   colormode: RGB
+2025-12-10 08:50:37   inference:
+2025-12-10 08:50:37     normalize_images: True
+2025-12-10 08:50:37     auto_padding:
+2025-12-10 08:50:37       pad_width_divisor: 32
+2025-12-10 08:50:37       pad_height_divisor: 32
+2025-12-10 08:50:37   train:
+2025-12-10 08:50:37     affine:
+2025-12-10 08:50:37       p: 0.5
+2025-12-10 08:50:37       rotation: 30
+2025-12-10 08:50:37       scaling: [0.5, 1.25]
+2025-12-10 08:50:37       translation: 0
+2025-12-10 08:50:37     crop_sampling:
+2025-12-10 08:50:37       width: 448
+2025-12-10 08:50:37       height: 448
+2025-12-10 08:50:37       max_shift: 0.1
+2025-12-10 08:50:37       method: hybrid
+2025-12-10 08:50:37     gaussian_noise: 12.75
+2025-12-10 08:50:37     motion_blur: True
+2025-12-10 08:50:37     normalize_images: True
+2025-12-10 08:50:37     auto_padding:
+2025-12-10 08:50:37       pad_width_divisor: 32
+2025-12-10 08:50:37       pad_height_divisor: 32
+2025-12-10 08:50:37 device: auto
+2025-12-10 08:50:37 metadata:
+2025-12-10 08:50:37   project_path: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09
+2025-12-10 08:50:37   pose_config_path: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\dlc-models-pytorch\iteration-0\GPEDec9-trainset95shuffle1\train\pytorch_config.yaml
+2025-12-10 08:50:37   bodyparts: ['Nose', 'Left_ear', 'Right_ear', 'Centroid', 'Left_lateral', 'Right_lateral', 'Tail_base', 'Tail_end']
+2025-12-10 08:50:37   unique_bodyparts: []
+2025-12-10 08:50:37   individuals: ['animal']
+2025-12-10 08:50:37   with_identity: None
+2025-12-10 08:50:37 method: bu
+2025-12-10 08:50:37 model:
+2025-12-10 08:50:37   backbone:
+2025-12-10 08:50:37     type: HRNet
+2025-12-10 08:50:37     model_name: hrnet_w32
+2025-12-10 08:50:37     freeze_bn_stats: True
+2025-12-10 08:50:37     freeze_bn_weights: False
+2025-12-10 08:50:37     interpolate_branches: False
+2025-12-10 08:50:37     increased_channel_count: False
+2025-12-10 08:50:37   backbone_output_channels: 32
+2025-12-10 08:50:37   heads:
+2025-12-10 08:50:37     bodypart:
+2025-12-10 08:50:37       type: HeatmapHead
+2025-12-10 08:50:37       weight_init: normal
+2025-12-10 08:50:37       predictor:
+2025-12-10 08:50:37         type: HeatmapPredictor
+2025-12-10 08:50:37         apply_sigmoid: False
+2025-12-10 08:50:37         clip_scores: True
+2025-12-10 08:50:37         location_refinement: True
+2025-12-10 08:50:37         locref_std: 7.2801
+2025-12-10 08:50:37       target_generator:
+2025-12-10 08:50:37         type: HeatmapGaussianGenerator
+2025-12-10 08:50:37         num_heatmaps: 8
+2025-12-10 08:50:37         pos_dist_thresh: 17
+2025-12-10 08:50:37         heatmap_mode: KEYPOINT
+2025-12-10 08:50:37         gradient_masking: False
+2025-12-10 08:50:37         generate_locref: True
+2025-12-10 08:50:37         locref_std: 7.2801
+2025-12-10 08:50:37       criterion:
+2025-12-10 08:50:37         heatmap:
+2025-12-10 08:50:37           type: WeightedMSECriterion
+2025-12-10 08:50:37           weight: 1.0
+2025-12-10 08:50:37         locref:
+2025-12-10 08:50:37           type: WeightedHuberCriterion
+2025-12-10 08:50:37           weight: 0.05
+2025-12-10 08:50:37       heatmap_config:
+2025-12-10 08:50:37         channels: [32, 8]
+2025-12-10 08:50:37         kernel_size: [3]
+2025-12-10 08:50:37         strides: [2]
+2025-12-10 08:50:37       locref_config:
+2025-12-10 08:50:37         channels: [32, 16]
+2025-12-10 08:50:37         kernel_size: [3]
+2025-12-10 08:50:37         strides: [2]
+2025-12-10 08:50:37 net_type: hrnet_w32
+2025-12-10 08:50:37 runner:
+2025-12-10 08:50:37   type: PoseTrainingRunner
+2025-12-10 08:50:37   gpus: None
+2025-12-10 08:50:37   key_metric: test.mAP
+2025-12-10 08:50:37   key_metric_asc: True
+2025-12-10 08:50:37   eval_interval: 10
+2025-12-10 08:50:37   optimizer:
+2025-12-10 08:50:37     type: AdamW
+2025-12-10 08:50:37     params:
+2025-12-10 08:50:37       lr: 0.0001
+2025-12-10 08:50:37   scheduler:
+2025-12-10 08:50:37     type: LRListScheduler
+2025-12-10 08:50:37     params:
+2025-12-10 08:50:37       lr_list: [[1e-05], [1e-06]]
+2025-12-10 08:50:37       milestones: [160, 190]
+2025-12-10 08:50:37   snapshots:
+2025-12-10 08:50:37     max_snapshots: 5
+2025-12-10 08:50:37     save_epochs: 50
+2025-12-10 08:50:37     save_optimizer_state: False
+2025-12-10 08:50:37 train_settings:
+2025-12-10 08:50:37   batch_size: 8
+2025-12-10 08:50:37   dataloader_workers: 0
+2025-12-10 08:50:37   dataloader_pin_memory: False
+2025-12-10 08:50:37   display_iters: 10
+2025-12-10 08:50:37   epochs: 250
+2025-12-10 08:50:37   seed: 42
+2025-12-10 08:50:37   weight_init:
+2025-12-10 08:50:37     dataset: superanimal_topviewmouse
+2025-12-10 08:50:37     snapshot_path: C:\Users\isaac.chang\Miniconda3\envs\DEEPLABCUT\lib\site-packages\deeplabcut\modelzoo\checkpoints\superanimal_topviewmouse_hrnet_w32.pt
+2025-12-10 08:50:37     with_decoder: False
+2025-12-10 08:50:37     memory_replay: False
+2025-12-10 08:50:38 Loading pretrained model weights: WeightInitialization(snapshot_path=WindowsPath('C:/Users/isaac.chang/Miniconda3/envs/DEEPLABCUT/lib/site-packages/deeplabcut/modelzoo/checkpoints/superanimal_topviewmouse_hrnet_w32.pt'), detector_snapshot_path=None, dataset='superanimal_topviewmouse', with_decoder=False, memory_replay=False, conversion_array=None, bodyparts=None)
+2025-12-10 08:50:38 The pose model is loading from C:\Users\isaac.chang\Miniconda3\envs\DEEPLABCUT\lib\site-packages\deeplabcut\modelzoo\checkpoints\superanimal_topviewmouse_hrnet_w32.pt
+2025-12-10 08:50:38 Data Transforms:
+2025-12-10 08:50:38   Training:   Compose([
+  Affine(always_apply=False, p=0.5, interpolation=1, mask_interpolation=0, cval=0, mode=0, scale={'x': (0.5, 1.25), 'y': (0.5, 1.25)}, translate_percent=None, translate_px={'x': (0, 0), 'y': (0, 0)}, rotate=(-30, 30), fit_output=False, shear={'x': (0.0, 0.0), 'y': (0.0, 0.0)}, cval_mask=0, keep_ratio=True, rotate_method='largest_box'),
+  PadIfNeeded(always_apply=True, p=1.0, min_height=448, min_width=448, pad_height_divisor=None, pad_width_divisor=None, position=PositionType.CENTER, border_mode=0, value=None, mask_value=None),
+  KeypointAwareCrop(always_apply=True, p=1.0, width=448, height=448, max_shift=0.1, crop_sampling='hybrid'),
+  MotionBlur(always_apply=False, p=0.5, blur_limit=(3, 7), allow_shifted=True),
+  GaussNoise(always_apply=False, p=0.5, var_limit=(0, 162.5625), per_channel=True, mean=0),
+  PadIfNeeded(always_apply=False, p=1.0, min_height=None, min_width=None, pad_height_divisor=32, pad_width_divisor=32, position=PositionType.RANDOM, border_mode=4, value=None, mask_value=None),
+  Normalize(always_apply=False, p=1.0, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], max_pixel_value=255.0),
+], p=1.0, bbox_params={'format': 'coco', 'label_fields': ['bbox_labels'], 'min_area': 0.0, 'min_visibility': 0.0, 'min_width': 0.0, 'min_height': 0.0, 'check_each_transform': True}, keypoint_params={'format': 'xy', 'label_fields': ['class_labels'], 'remove_invisible': False, 'angle_in_degrees': True, 'check_each_transform': True}, additional_targets={}, is_check_shapes=True)
+2025-12-10 08:50:38   Validation: Compose([
+  PadIfNeeded(always_apply=False, p=1.0, min_height=None, min_width=None, pad_height_divisor=32, pad_width_divisor=32, position=PositionType.RANDOM, border_mode=4, value=None, mask_value=None),
+  Normalize(always_apply=False, p=1.0, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], max_pixel_value=255.0),
+], p=1.0, bbox_params={'format': 'coco', 'label_fields': ['bbox_labels'], 'min_area': 0.0, 'min_visibility': 0.0, 'min_width': 0.0, 'min_height': 0.0, 'check_each_transform': True}, keypoint_params={'format': 'xy', 'label_fields': ['class_labels'], 'remove_invisible': False, 'angle_in_degrees': True, 'check_each_transform': True}, additional_targets={}, is_check_shapes=True)
+2025-12-10 08:50:39 
+Note: According to your model configuration, you're training with batch size 1 and/or ``freeze_bn_stats=false``. This is not an optimal setting if you have powerful GPUs.
+This is good for small batch sizes (e.g., when training on a CPU), where you should keep ``freeze_bn_stats=true``.
+If you're using a GPU to train, you can obtain faster performance by setting a larger batch size (the biggest power of 2 where you don't geta CUDA out-of-memory error, such as 8, 16, 32 or 64 depending on the model, size of your images, and GPU memory) and ``freeze_bn_stats=false`` for the backbone of your model. 
+This also allows you to increase the learning rate (empirically you can scale the learning rate by sqrt(batch_size) times).
+
+2025-12-10 08:50:39 Using 475 images and 25 for testing
+2025-12-10 08:50:39 
+Starting pose model training...
+--------------------------------------------------
+2025-12-11 11:31:06 Training with configuration:
+2025-12-11 11:31:06 data:
+2025-12-11 11:31:06   bbox_margin: 20
+2025-12-11 11:31:06   colormode: RGB
+2025-12-11 11:31:06   inference:
+2025-12-11 11:31:06     normalize_images: True
+2025-12-11 11:31:06     auto_padding:
+2025-12-11 11:31:06       pad_width_divisor: 32
+2025-12-11 11:31:06       pad_height_divisor: 32
+2025-12-11 11:31:06   train:
+2025-12-11 11:31:06     affine:
+2025-12-11 11:31:06       p: 0.5
+2025-12-11 11:31:06       rotation: 30
+2025-12-11 11:31:06       scaling: [0.5, 1.25]
+2025-12-11 11:31:06       translation: 0
+2025-12-11 11:31:06     crop_sampling:
+2025-12-11 11:31:06       width: 448
+2025-12-11 11:31:06       height: 448
+2025-12-11 11:31:06       max_shift: 0.1
+2025-12-11 11:31:06       method: hybrid
+2025-12-11 11:31:06     gaussian_noise: 12.75
+2025-12-11 11:31:06     motion_blur: True
+2025-12-11 11:31:06     normalize_images: True
+2025-12-11 11:31:06     auto_padding:
+2025-12-11 11:31:06       pad_width_divisor: 32
+2025-12-11 11:31:06       pad_height_divisor: 32
+2025-12-11 11:31:06 device: auto
+2025-12-11 11:31:06 metadata:
+2025-12-11 11:31:06   project_path: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09
+2025-12-11 11:31:06   pose_config_path: C:\Users\isaac.chang\Desktop\GPE-Isaac-2025-12-09\dlc-models-pytorch\iteration-0\GPEDec9-trainset95shuffle1\train\pytorch_config.yaml
+2025-12-11 11:31:06   bodyparts: ['Nose', 'Left_ear', 'Right_ear', 'Centroid', 'Left_lateral', 'Right_lateral', 'Tail_base', 'Tail_end']
+2025-12-11 11:31:06   unique_bodyparts: []
+2025-12-11 11:31:06   individuals: ['animal']
+2025-12-11 11:31:06   with_identity: None
+2025-12-11 11:31:06 method: bu
+2025-12-11 11:31:06 model:
+2025-12-11 11:31:06   backbone:
+2025-12-11 11:31:06     type: HRNet
+2025-12-11 11:31:06     model_name: hrnet_w32
+2025-12-11 11:31:06     freeze_bn_stats: True
+2025-12-11 11:31:06     freeze_bn_weights: False
+2025-12-11 11:31:06     interpolate_branches: False
+2025-12-11 11:31:06     increased_channel_count: False
+2025-12-11 11:31:06   backbone_output_channels: 32
+2025-12-11 11:31:06   heads:
+2025-12-11 11:31:06     bodypart:
+2025-12-11 11:31:06       type: HeatmapHead
+2025-12-11 11:31:06       weight_init: normal
+2025-12-11 11:31:06       predictor:
+2025-12-11 11:31:06         type: HeatmapPredictor
+2025-12-11 11:31:06         apply_sigmoid: False
+2025-12-11 11:31:06         clip_scores: True
+2025-12-11 11:31:06         location_refinement: True
+2025-12-11 11:31:06         locref_std: 7.2801
+2025-12-11 11:31:06       target_generator:
+2025-12-11 11:31:06         type: HeatmapGaussianGenerator
+2025-12-11 11:31:06         num_heatmaps: 8
+2025-12-11 11:31:06         pos_dist_thresh: 17
+2025-12-11 11:31:06         heatmap_mode: KEYPOINT
+2025-12-11 11:31:06         gradient_masking: False
+2025-12-11 11:31:06         generate_locref: True
+2025-12-11 11:31:06         locref_std: 7.2801
+2025-12-11 11:31:06       criterion:
+2025-12-11 11:31:06         heatmap:
+2025-12-11 11:31:06           type: WeightedMSECriterion
+2025-12-11 11:31:06           weight: 1.0
+2025-12-11 11:31:06         locref:
+2025-12-11 11:31:06           type: WeightedHuberCriterion
+2025-12-11 11:31:06           weight: 0.05
+2025-12-11 11:31:06       heatmap_config:
+2025-12-11 11:31:06         channels: [32, 8]
+2025-12-11 11:31:06         kernel_size: [3]
+2025-12-11 11:31:06         strides: [2]
+2025-12-11 11:31:06       locref_config:
+2025-12-11 11:31:06         channels: [32, 16]
+2025-12-11 11:31:06         kernel_size: [3]
+2025-12-11 11:31:06         strides: [2]
+2025-12-11 11:31:06 net_type: hrnet_w32
+2025-12-11 11:31:06 runner:
+2025-12-11 11:31:06   type: PoseTrainingRunner
+2025-12-11 11:31:06   gpus: None
+2025-12-11 11:31:06   key_metric: test.mAP
+2025-12-11 11:31:06   key_metric_asc: True
+2025-12-11 11:31:06   eval_interval: 10
+2025-12-11 11:31:06   optimizer:
+2025-12-11 11:31:06     type: AdamW
+2025-12-11 11:31:06     params:
+2025-12-11 11:31:06       lr: 0.0001
+2025-12-11 11:31:06   scheduler:
+2025-12-11 11:31:06     type: LRListScheduler
+2025-12-11 11:31:06     params:
+2025-12-11 11:31:06       lr_list: [[1e-05], [1e-06]]
+2025-12-11 11:31:06       milestones: [160, 190]
+2025-12-11 11:31:06   snapshots:
+2025-12-11 11:31:06     max_snapshots: 5
+2025-12-11 11:31:06     save_epochs: 10
+2025-12-11 11:31:06     save_optimizer_state: False
+2025-12-11 11:31:06 train_settings:
+2025-12-11 11:31:06   batch_size: 8
+2025-12-11 11:31:06   dataloader_workers: 0
+2025-12-11 11:31:06   dataloader_pin_memory: False
+2025-12-11 11:31:06   display_iters: 10
+2025-12-11 11:31:06   epochs: 100
+2025-12-11 11:31:06   seed: 42
+2025-12-11 11:31:06   weight_init:
+2025-12-11 11:31:06     dataset: superanimal_topviewmouse
+2025-12-11 11:31:06     snapshot_path: C:\Users\isaac.chang\Miniconda3\envs\DEEPLABCUT\lib\site-packages\deeplabcut\modelzoo\checkpoints\superanimal_topviewmouse_hrnet_w32.pt
+2025-12-11 11:31:06     with_decoder: False
+2025-12-11 11:31:06     memory_replay: False
+2025-12-11 11:31:07 Loading pretrained model weights: WeightInitialization(snapshot_path=WindowsPath('C:/Users/isaac.chang/Miniconda3/envs/DEEPLABCUT/lib/site-packages/deeplabcut/modelzoo/checkpoints/superanimal_topviewmouse_hrnet_w32.pt'), detector_snapshot_path=None, dataset='superanimal_topviewmouse', with_decoder=False, memory_replay=False, conversion_array=None, bodyparts=None)
+2025-12-11 11:31:07 The pose model is loading from C:\Users\isaac.chang\Miniconda3\envs\DEEPLABCUT\lib\site-packages\deeplabcut\modelzoo\checkpoints\superanimal_topviewmouse_hrnet_w32.pt
+2025-12-11 11:31:53 Shuffle set to 2
+2025-12-11 11:31:53 Shuffle set to 2
+2025-12-11 11:31:53 Shuffle set to 2
+2025-12-11 11:31:53 Shuffle set to 2
+2025-12-11 11:31:53 Shuffle set to 2
+2025-12-11 11:31:53 Shuffle set to 2
+2025-12-11 11:31:53 Shuffle set to 2
+2025-12-11 11:31:54 Shuffle set to 2
+2025-12-11 11:31:54 Shuffle set to 3
+2025-12-11 11:31:54 Shuffle set to 3
+2025-12-11 11:31:54 Shuffle set to 3
+2025-12-11 11:31:54 Shuffle set to 3
+2025-12-11 11:31:54 Shuffle set to 3
+2025-12-11 11:31:54 Shuffle set to 3
+2025-12-11 11:31:54 Shuffle set to 3
+2025-12-11 11:31:54 Shuffle set to 3
+2025-12-11 11:31:57 Shuffle set to 2
+2025-12-11 11:31:57 Shuffle set to 2
+2025-12-11 11:31:57 Shuffle set to 2
+2025-12-11 11:31:57 Shuffle set to 2
+2025-12-11 11:31:57 Shuffle set to 2
+2025-12-11 11:31:57 Shuffle set to 2
+2025-12-11 11:31:57 Shuffle set to 2
+2025-12-11 11:31:57 Shuffle set to 2
