@@ -125,5 +125,3 @@ For questions, please contact Isaac Chang at isaachkchang@gmail.com
 ## Citation
 
 If using this repository, please cite:
-
-[INSERT FULL MANUSCRIPT CITATION]
