@@ -30,12 +30,13 @@ GPe/
 │           └── Mvt
 │       └── Raw DLC trajectories/   
 │   ├── IHC/
+│       └── KCC2/  
 │   ├── Opto/
 │       ├── Analysis/
 │       ├── LMM/
 │       └── Raw DLC trajectories/   
-│   └── Patch/
-│
+│   ├── Patch/
+│   └── Supp/
 └── DLC/
 ```
 ## Figures
