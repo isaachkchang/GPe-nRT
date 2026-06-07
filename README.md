@@ -90,41 +90,33 @@ C. -----
 ```
 ### Supp Fig 1 
 ```text
-No code was used for this figure.
-```
-### Supp Fig 2 
-```text
 A. -----
 B. -----
 C. Patch/PSCPrMinStim.py
 D. -----
 ```
-### Supp Fig 3
+### Supp Fig 2
 ```text
 1. Markerless pose estimation: DLC/filter.py → DLC/process.py
 2. Processing of TDT fiberphotometry and synchronization with movement dat: Fiber/preprocess.py
 3. Analysis: Fiber/Single.py, Fiber/Population.py
 ```
-### Supp Fig 4 
+### Supp Fig 3
 ```text
 1. Markerless pose estimation: DLC/filter.py → DLC/process.py
 2. Analysis: Opto/Single.py, Opto/Population.py, Opto/LMM.py
 ```
-### Supp Fig 5 
+### Supp Fig 4
 ```text
 1. Markerless pose estimation: DLC/filter.py → DLC/process.py
 2. Analysis: Opto/Single.py, Opto/Population.py, Opto/LMM.py
 ```
-### Supp Fig 6 
+### Supp Fig 5
 ```text
 A. -----
 B. Patch/OpsinFiring.py, Patch/OpsinSilent.py
 ```
-### Supp Fig 7 
-```text
-1. Markerless pose estimation: DLC/filter.py → DLC/process.py
-2. Analysis: Opto/Single.py, Opto/Population.py, Opto/LMM.py
-```
+
 ## Contact
 
 For questions, please contact Isaac Chang at isaachkchang@gmail.com
