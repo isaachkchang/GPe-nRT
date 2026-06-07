@@ -7,7 +7,7 @@ This repository contains all code, processed data, DLC network assoociated with 
 
 **“A non-canonical pallidothalamic pathway for motor control”**
 
-The goal is to ensure that every figure panel in the manuscript can be directly reproduced from the materials in the repository. All code was written by Isaac Chang. Raw data could be downloaded from Zenodo: https://zenodo.org/records/16956754
+The goal is to ensure that every figure panel in the manuscript can be directly reproduced from the materials in the repository. All code was written by Isaac Chang. Raw data could be downloaded from Zenodo: https://zenodo.org/records/20583270
 
 ## Repository Structure
 
