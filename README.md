@@ -28,13 +28,13 @@ GPe/
 │       ├── Preprocessing/
 │           ├── Fiber
 │           └── Mvt
-│       └── Raw DLC trajectories/   
+│       └── Raw DLC trajectories/(On Zenodo)
 │   ├── IHC/
 │       └── KCC2/  
 │   ├── Opto/
 │       ├── Analysis/
 │       ├── LMM/
-│       └── Raw DLC trajectories/   
+│       └── Raw DLC trajectories/(On Zenodo)  
 │   ├── Patch/
 │   └── Supp/
 └── DLC/
