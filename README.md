@@ -124,4 +124,4 @@ For questions, please contact Isaac Chang at isaachkchang@gmail.com
 
 ## Citation
 
-If using this repository, please cite:
+If using this repository, please cite: https://www.biorxiv.org/content/10.64898/2026.06.08.730902v1
